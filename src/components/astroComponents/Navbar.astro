@@ -1,12 +1,12 @@
 ---
 import {Image} from 'astro:assets';
-// import logo from '../../public/logos/navLogo.svg';
-// import HamburgerMenu from './react_components/HamburgerMenu.tsx'
+import logo from '../../../public/logos/navbarLogo.svg';
+import HamburgerMenu from '../reactComponents/HamburgerMenu'
 // import StepByStepPopUp from "./react_components/StepByStepPopUp.tsx";
 
 const path = Astro.url.pathname
 
-function isActivePath(currentPath:string, pathPrefix:string) {
+function isActivePath(currentPath: string, pathPrefix: string) {
     if (pathPrefix === '/') {
         return currentPath === '/';
     }
@@ -14,65 +14,71 @@ function isActivePath(currentPath:string, pathPrefix:string) {
 }
 ---
 
-<nav class="top-0 shadow-sm  sticky  z-50 bg-black ">
+<nav class="top-0 shadow-sm  sticky  z-50">
     <div class="mx-auto py-2 max-w-[1440px] px-4 sm:px-6 lg:px-8">
-        <div class="h-[64px] lg:h-fit">
-            <!--<HamburgerMenu activePath={path} client:only="react"/>-->
-        </div>
-        <div class="hidden lg:flex justify-between h-16 bg-black z-10">
-            <div class="flex items-center">
+        <div class="h-[64px] lg:h-fit flex lg:hidden">
+            <div class="flex items-center ">
                 <a href="/" class="object-contain">
-                    <!--<Image src={logo} alt="logo"/>-->
+                    <Image src={logo} alt="logo"/>
                 </a>
 
             </div>
-            <div class="hidden lg:flex h-16 items-center xl:text-lg  text-md ">
-                <ul class="flex items-center gap-6 h-16">
+            <HamburgerMenu activePath={path} client:only="react"/>
+        </div>
+        <div class="hidden lg:flex justify-between h-16 z-10">
+            <div class="flex items-center ">
+                <a href="/" class="object-contain">
+                    <Image src={logo} alt="logo"/>
+                </a>
+
+            </div>
+            <div class="hidden lg:flex h-16 items-center xl:text-[20px]  text-md font-semibold justify-center ">
+                <ul class="flex items-center xl:gap-12 lg:gap-8 h-16 ">
                     <li class=`flex ${
                         isActivePath(path, "/") ? "underline-text" : ""
                     }`><a href="/">Home</a></li>
                     <li class={`flex ${
                         isActivePath(path, "/about") ? "underline-text" : ""
-                    }`}><a href="/about">About Us</a></li>
+                    }`}><a href="/services">Services</a></li>
                     <li class=`flex ${
-                        isActivePath(path, "/services")  ? "underline-text" : ""
-                    }`><a href="/services">Services</a></li>
+                        isActivePath(path, "/services") ? "underline-text" : ""
+                    }`><a href="/capabilites">Our Capabilities</a></li>
                     <li class=`flex ${
                         isActivePath(path, "/clients") ? "underline-text" : ""
-                    }`><a href="/clients">Clients</a></li>
-                    <!--<li class=`flex ${-->
-                    <!--    path === "/portfolio/" ? "underline-text" : ""-->
-                    <!--}`><a href="/portfolio">Portfolio</a></li>-->
+                    }`><a href="/blog">Blog</a></li>
                     <li class=`flex ${
                         isActivePath(path, "/connect") ? "underline-text" : ""
-                    }`><a href="/connect">Connect</a></li>
+                    }`><a href="/career">Career</a></li>
                     <li class=`flex ${
                         isActivePath(path, "/blog") ? "underline-text" : ""
-                    }`><a href="/blog">Blog</a></li>
-                    <li class="flex">
-                        <div class="w-[130px]">
-                            <!--<StepByStepPopUp btnText='Get Started' client:visible/>-->
-                        </div>
-                    </li>
+                    }`><a href="/contact">Contact</a></li>
                 </ul>
+            </div>
+            <div class="navBtn flex items-center xl:text-[20px]  text-md font-semibold ">
+                <div class="wrapper">
+                    <button class="py-[10px] xl:px-[50px] lg:px-[40px] bg-[#033271] rounded-[8px] text-white flex justify-center">
+                        Schedule a free consultation
+                    </button>
+
+                </div>
             </div>
         </div>
     </div>
 </nav>
 
 <style>
-    .underline-text{
-        position:relative;
-        display:inline-block;
+    .underline-text {
+        position: relative;
+        display: inline-block;
     }
 
-    .underline-text:after{
+    .underline-text:after {
         position: absolute;
         bottom: -5px;
         content: " ";
-        width:100%;
-        height:2px;
-        left:0;
+        width: 100%;
+        height: 2px;
+        left: 0;
         //top: 5px;
         background: white;
     }
