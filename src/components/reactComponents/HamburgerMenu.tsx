@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, {useState, useEffect, useRef} from "react";
 
 interface Props {
     activePath: string;
 }
 
-export default function HamburgerMenu({ activePath }: Props) {
+export default function HamburgerMenu({activePath}: Props) {
     const [isOpen, setIsOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
 
@@ -21,11 +21,11 @@ export default function HamburgerMenu({ activePath }: Props) {
     }, [isOpen]);
 
     const links = [
-        { path: "/", label: "Services" },
-        { path: "/capabilities", label: "Our Capabilities" },
-        { path: "/blog", label: "Blog" },
-        { path: "/career", label: "Career" },
-        { path: "/contact", label: "Contact" },
+        {path: "/", label: "Services"},
+        {path: "/capabilities", label: "Our Capabilities"},
+        {path: "/blog", label: "Blog"},
+        {path: "/career", label: "Career"},
+        {path: "/contact", label: "Contact"},
     ];
 
     return (
@@ -34,7 +34,7 @@ export default function HamburgerMenu({ activePath }: Props) {
                 src="/vectors/Hamburger.svg"
                 alt="hamburger"
                 className="cursor-pointer w-8 h-8 z-50"
-                style={{ visibility: !isOpen ? "visible" : "hidden" }}
+                style={{visibility: !isOpen ? "visible" : "hidden"}}
                 onClick={toggleMenu}
             />
 
@@ -52,7 +52,7 @@ export default function HamburgerMenu({ activePath }: Props) {
                 className={`fixed top-0 right-0 h-screen w-[300px] bg-white z-50 shadow-lg
         transform transition-transform duration-500 ease-in-out
         ${isOpen ? "translate-x-0" : "translate-x-full"}`}
-                style={{ boxShadow: "-4px 0 10px rgba(0, 0, 0, 0.1)" }} // Left shadow
+                style={{boxShadow: "-4px 0 10px rgba(0, 0, 0, 0.1)"}}
             >
                 <button
                     onClick={toggleMenu}
@@ -66,8 +66,10 @@ export default function HamburgerMenu({ activePath }: Props) {
                 </button>
 
                 <ul className="mt-24 px-6 space-y-4 text-[20px]">
-                    {links.map(({ path, label }) => {
-                        const isActive = activePath === path || activePath.startsWith(path);
+                    {links.map(({path, label}) => {
+                        const isActive = path === "/"
+                            ? activePath === "/"
+                            : activePath.startsWith(path);
                         return (
                             <li key={path} className="group">
                                 <a
@@ -97,9 +99,9 @@ export default function HamburgerMenu({ activePath }: Props) {
                                 </a>
 
                                 {isActive ? (
-                                    <hr className="border-[#3F5D8F] mt-2" />
+                                    <hr className="border-[#3F5D8F] mt-2"/>
                                 ) : (
-                                    <hr className="border-gray-200 mt-2" />
+                                    <hr className="border-gray-200 mt-2"/>
                                 )}
                             </li>
                         );
