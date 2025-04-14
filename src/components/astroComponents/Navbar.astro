@@ -1,0 +1,79 @@
+---
+import {Image} from 'astro:assets';
+// import logo from '../../public/logos/navLogo.svg';
+// import HamburgerMenu from './react_components/HamburgerMenu.tsx'
+// import StepByStepPopUp from "./react_components/StepByStepPopUp.tsx";
+
+const path = Astro.url.pathname
+
+function isActivePath(currentPath:string, pathPrefix:string) {
+    if (pathPrefix === '/') {
+        return currentPath === '/';
+    }
+    return currentPath.startsWith(pathPrefix);
+}
+---
+
+<nav class="top-0 shadow-sm  sticky  z-50 bg-black ">
+    <div class="mx-auto py-2 max-w-[1440px] px-4 sm:px-6 lg:px-8">
+        <div class="h-[64px] lg:h-fit">
+            <!--<HamburgerMenu activePath={path} client:only="react"/>-->
+        </div>
+        <div class="hidden lg:flex justify-between h-16 bg-black z-10">
+            <div class="flex items-center">
+                <a href="/" class="object-contain">
+                    <!--<Image src={logo} alt="logo"/>-->
+                </a>
+
+            </div>
+            <div class="hidden lg:flex h-16 items-center xl:text-lg  text-md ">
+                <ul class="flex items-center gap-6 h-16">
+                    <li class=`flex ${
+                        isActivePath(path, "/") ? "underline-text" : ""
+                    }`><a href="/">Home</a></li>
+                    <li class={`flex ${
+                        isActivePath(path, "/about") ? "underline-text" : ""
+                    }`}><a href="/about">About Us</a></li>
+                    <li class=`flex ${
+                        isActivePath(path, "/services")  ? "underline-text" : ""
+                    }`><a href="/services">Services</a></li>
+                    <li class=`flex ${
+                        isActivePath(path, "/clients") ? "underline-text" : ""
+                    }`><a href="/clients">Clients</a></li>
+                    <!--<li class=`flex ${-->
+                    <!--    path === "/portfolio/" ? "underline-text" : ""-->
+                    <!--}`><a href="/portfolio">Portfolio</a></li>-->
+                    <li class=`flex ${
+                        isActivePath(path, "/connect") ? "underline-text" : ""
+                    }`><a href="/connect">Connect</a></li>
+                    <li class=`flex ${
+                        isActivePath(path, "/blog") ? "underline-text" : ""
+                    }`><a href="/blog">Blog</a></li>
+                    <li class="flex">
+                        <div class="w-[130px]">
+                            <!--<StepByStepPopUp btnText='Get Started' client:visible/>-->
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<style>
+    .underline-text{
+        position:relative;
+        display:inline-block;
+    }
+
+    .underline-text:after{
+        position: absolute;
+        bottom: -5px;
+        content: " ";
+        width:100%;
+        height:2px;
+        left:0;
+        //top: 5px;
+        background: white;
+    }
+</style>
