@@ -5,7 +5,11 @@ module.exports = {
         "./public/**/*.html"
     ],
     theme: {
-        extend: {},
+        extend: {
+            fontFamily: {
+                sans: ['Manrope', 'sans-serif'],
+            },
+        },
     },
     plugins: [require('@tailwindcss/typography')],
 }
