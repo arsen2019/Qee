@@ -1,9 +1,42 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Faqs from "../components/reactComponents/Faqs";
+import {Image} from 'astro:assets';
+import aboutImg from '../../aboutImg.webp';
 ---
 
 
 <BaseLayout title="Home">
-
+    <section class="my-10 mx-auto max-w-7xl px-4">
+        <div class="border-t-2 border-gray-400 w-full">
+            <h1 class=" xl:text-4xl lg:text-3xl text-2xl font-semibold py-5 ">ABOUT US</h1>
+        </div>
+        <div class="vision-container flex md:flex-row flex-col-reverse lg:gap-12 justify-center items-center ">
+            <div class="md:w-3/5 flex flex-col">
+                <div class="text-base lg:text-lg ">
+                    <p>At <span class="font-semibold">QEE</span>, we deliver a comprehensive suite of consulting services that cover <span class="font-semibold">internal audit, risk management, IT governance, IT support, IT audits, and process optimization  </span>. Our mission is to help businesses operate smarter, reduce risks, and elevate performance through tailored solutions and expert insights.		With a team of experienced professionals, we’ll work closely with your organization to identify inefficiencies, streamline workflows, and align your operations with industry best practices. Whether it's through process redesign or digital enablement, our goal is to make your systems more effective and scalable.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-lg lg:text-xl xl:text-2xl py-3 text-[#00296B]">Mission</h3>
+                    <p class="text-base lg:text-lg ">Our mission is simple yet powerful:</p>
+                    <p class="text-base lg:text-lg "><span class="font-semibold">Empower organizations</span> by providing <span class="font-semibold">top-tier consulting services,</span> which drive growth, enhance performance, and reduce risks. We strive to bring <span class="font-semibold">clarity and actionable insights</span> to your operations through expert advice, customized solutions, and a commitment to your success.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-lg lg:text-xl xl:text-2xl py-3 text-[#00296B]">Vision</h3>
+                    <p class="text-base lg:text-lg">We aspire to become the <span class="font-semibold">trusted partner of choice</span> for organizations seeking <span class="font-semibold">reliable, efficient, and innovative</span> consulting solutions. Our vision is to lead the way in <span class="font-semibold">internal audit, risk management, IT governance and strategic advisory,</span> setting the standard for excellence, integrity, and client satisfaction.</p>
+                </div>
+            </div>
+            <div class="md:w-2/5 justify-center items-center ">
+                <img src="aboutImg.webp"/>
+            </div>
+        </div>
+    </section>
+    <section class="my-10 mx-auto max-w-7xl px-4">
+        <div class="border-t-2 border-gray-400 w-full">
+            <h1 class=" xl:text-4xl lg:text-3xl text-2xl font-semibold py-5 ">FAQ<span
+                    class=" xl:text-2xl lg:text-xl text-lg">s</span></h1>
+        </div>
+        <Faqs client:only="react"/>
+    </section>
 </BaseLayout>
 
