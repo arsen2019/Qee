@@ -3,10 +3,66 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Faqs from "../components/reactComponents/Faqs";
 import {Image} from 'astro:assets';
 import aboutImg from '../../aboutImg.webp';
+import Services from "../components/astroComponents/Servises.astro";
+import OneSevice from "../components/astroComponents/OneSevice.astro";
+
 ---
 
 
 <BaseLayout title="Home">
+<!--
+    <Services
+            title="Internal Audit"
+            imageSrc="InternalAudit.webp"
+            alt="Services image description"
+    >
+        <p class="mb-6 text-base">
+            We offer a complete range of internal audit solutions—designed to meet organizations wherever they are on their journey, from building audit capabilities to driving strategic impact.
+        </p>
+
+        <div class="space-y-8">
+            <section>
+                <h2 class="font-bold text-lg">- Internal Audit Outsourcing & Co-Sourcing</h2>
+                <p class="mt-1"><strong>When you need:</strong> Full coverage or expert support.</p>
+                <p>Flexible and scalable solutions whether you're fully outsourcing your internal audit function or strengthening your in-house team with specialist support.</p>
+            </section>
+
+            <section>
+                <h2 class="font-bold text-lg">- Internal Audit Function Setup & Transformation</h2>
+                <p class="mt-1"><strong>When you need:</strong> To establish or reinvent your audit function.</p>
+                <p>End-to-end support to set up or transform internal audit in alignment with international standards (like the IIA), tailored to your industry and risk profile.</p>
+            </section>
+
+            <section>
+                <h2 class="font-bold text-lg">- Risk-Based Audit Planning & Advisory</h2>
+                <p class="mt-1"><strong>When you need:</strong> Smarter audit focus and coverage.</p>
+                <p>Development and refinement of annual and multi-year audit plans based on risk assessments—ensuring your audits deliver maximum value where it matters most.</p>
+            </section>
+
+            <section>
+                <h2 class="font-bold text-lg">- Governance, Risk & Compliance (GRC) Advisory</h2>
+                <p class="mt-1"><strong>When you need:</strong> Stronger oversight and control frameworks.</p>
+                <p>Strategic consulting on governance models, enterprise risk management, internal controls, and compliance frameworks—enabling long-term resilience.</p>
+            </section>
+
+            <section>
+                <h2 class="font-bold text-lg">- Internal Audit Training & Capacity Building</h2>
+                <p class="mt-1"><strong>When you need:</strong> To develop skills and build internal strength.</p>
+                <p>Customized training, hands-on workshops, and certification support (e.g., CIA prep) to empower your audit team and foster a culture of continuous learning.</p>
+            </section>
+        </div>
+    </Services>
+    -->
+
+    <section class="my-10 mx-auto max-w-7xl px-4">
+        <div class="border-t-2 border-gray-400 w-full">
+            <h1 class=" xl:text-4xl lg:text-3xl text-2xl font-semibold py-5 ">SERVICES</h1>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4 ">
+                <OneSevice imageSrc="InternalAudit.webp" alt="IntAud" title="Internal Audit" subTitle="Internal audit is more than compliance—it’s your organization’s early warning system and strategic advisor . . ." />
+            </div>
+        </div>
+    </section>
+
     <section class="my-10 mx-auto max-w-7xl px-4">
         <div class="border-t-2 border-gray-400 w-full">
             <h1 class=" xl:text-4xl lg:text-3xl text-2xl font-semibold py-5 ">ABOUT US</h1>
@@ -26,8 +82,8 @@ import aboutImg from '../../aboutImg.webp';
                     <p class="text-base lg:text-lg">We aspire to become the <span class="font-semibold">trusted partner of choice</span> for organizations seeking <span class="font-semibold">reliable, efficient, and innovative</span> consulting solutions. Our vision is to lead the way in <span class="font-semibold">internal audit, risk management, IT governance and strategic advisory,</span> setting the standard for excellence, integrity, and client satisfaction.</p>
                 </div>
             </div>
-            <div class="md:w-2/5 justify-center items-center ">
-                <img src="aboutImg.webp"/>
+            <div class="md:w-2/5 justify-center items-center  ">
+                <img src="aboutImg.webp" class=" min-w-full min-h-full shadow-2xl flex-shrink-0 object-cover"/>
             </div>
         </div>
     </section>

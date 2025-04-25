@@ -1,7 +1,7 @@
 import {useState} from 'react';
 
 interface FAQItem {
-    id:string;
+    id: string;
     question: string;
     answer: React.ReactNode;
 }
@@ -34,16 +34,24 @@ const FAQAccordion: React.FC = () => {
         {
             id: 'basic-heading-one-with-arrow',
             question: 'Are your team members certified?',
-            answer: 'Yes. Our consultants hold globally recognized certifications such as CIA (Certified Internal Auditor), CISA (Certified Information Systems Auditor), CMA (Certified Management Accountant), and MBA degrees. With 10+ years of experience on average, we combine technical depth with strategic insight.'
+            answer: (
+                <>
+                    Yes. Our consultants hold globally recognized certifications such as
+                    <strong className="font-semibold "> CIA (Certified Internal Auditor), CISA (Certified Information Systems Auditor), CMA (Certified Management Accountant), and MBA degrees</strong>,
+                    . With 10+ years of experience on average, we combine technical depth with strategic insight.
+                </>
+            )
         },
         {
             id: 'basic-heading-one-with-arrow',
             question: 'What makes your approach different?',
-            answer:(
+            answer: (
                 <>
                     We follow our proprietary
                     <strong className="font-semibold "> QEE framework—Quality, Efficiency, and Effectiveness</strong>,
-                    —to ensure every engagement delivers actionable insights, not just compliance checkboxes. We partner with you closely to create custom, scalable solutions that align with international standards and real-world needs.
+                    —to ensure every engagement delivers actionable insights, not just compliance checkboxes. We partner
+                    with you closely to create custom, scalable solutions that align with international standards and
+                    real-world needs.
                 </>
             )
         },
