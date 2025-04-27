@@ -73,7 +73,7 @@ const FAQAccordion: React.FC = () => {
 
     return (
         <section className="py-10">
-            <div className="mx-auto max-w-7xl px-8 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-7xl  sm:px-6 lg:px-8">
                 <div className="accordion-group" data-accordion="default-accordion">
                     {faqItems.map((item, index) => (
                         <div
@@ -81,7 +81,7 @@ const FAQAccordion: React.FC = () => {
                             className={`accordion py-8 px-6 shadow-xl ${
                                 index < faqItems.length - 1 ? 'border-b border-solid border-gray-200' : ''
                             } transition-all duration-500 rounded-2xl  ${
-                                openAccordion === index ? 'bg-[0040B5] active' : ''
+                                openAccordion === index ? 'active' : ''
                             }`}
                             id={item.id}
                         >
@@ -119,7 +119,7 @@ const FAQAccordion: React.FC = () => {
                                 className="accordion-content w-full px-0 overflow-hidden"
                                 aria-labelledby={item.id}
                                 style={{
-                                    maxHeight: openAccordion === index ? '250px' : '0px',
+                                    maxHeight: openAccordion === index ? '350px' : '0px',
                                     transition: 'max-height 0.5s ease-in-out',
                                 }}
                             >
