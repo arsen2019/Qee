@@ -1,0 +1,82 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 50;
+}
+
+.modal-content {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.input-field {
+    width: 100%;
+    background-color: white;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    border-bottom: 1px solid #151515;
+    outline: none;
+
+}
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    color: #555;
+}
+
+.close-btn:hover {
+    color: #e74c3c;
+}
+
+.open-btn, .submit-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.open-btn {
+    background-color: white;
+    color: #033271;
+    border: none;
+}
+
+
+.submit-btn {
+    background-color: #3F5D8F;
+    color: white;
+    border: none;
+    width: 100%;
+}
+.modal-wrapper {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    padding: 1rem;
+    width: 70%;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+.close-btn-div {
+    display: flex;
+    justify-content: flex-end;
+}
+.modal-header{
+    display: flex;
+    justify-content: start;
+}
+.send_btn button{
+    background-color: #3F5D8F;
+    color: white;
+    border: none;
+    border-radius: 8px;
+}
