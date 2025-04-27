@@ -21,7 +21,7 @@ export default function HamburgerMenu({activePath}: Props) {
     }, [isOpen]);
 
     const links = [
-        {path: "/", label: "Services"},
+        {path: "/", label: "SectionDetail"},
         {path: "/capabilities", label: "Our Capabilities"},
         {path: "/blog", label: "Blog"},
         {path: "/career", label: "Career"},
