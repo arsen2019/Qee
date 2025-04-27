@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import GetStartedPopUp from "../components/reactComponents/popUps/GetStartedPopUp";
+import ScheduleForm from "../components/reactComponents/ScheduleForm";
+import GetInTouchForm from "../components/reactComponents/GetInTouchForm";
 ---
 
 
@@ -21,6 +23,13 @@ import GetStartedPopUp from "../components/reactComponents/popUps/GetStartedPopU
                 }} buttonText="Get Started"  client:visible />
             </div>
         </div>
+    </div>
+    <div class="relative w-full ">
+        <div class="mb-50"></div>
+
+        <ScheduleForm client:only="react"/>
+        <div class="mb-50"></div>
+        <GetInTouchForm client:only="react"/>
     </div>
 
 

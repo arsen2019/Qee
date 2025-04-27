@@ -21,7 +21,7 @@ export default function FeedbackPopUp({content, onClose}: FeedbackPopUpProps) {
                     </button>
                 </div>
 
-                <div className="modal-content text-[#151515] flex flex-col justify-center gap-5 p-20">
+                <div className="modal-content text-[#151515] flex flex-col justify-center gap-5 p-20 items-center">
                     <h1 className='text-2xl md:text-4xl font-semibold'>Thank you</h1>
                     <p className='font-semibold'>{content}</p>
                     <img src="/vectors/feedbackSucces.svg" alt="succes" className='w-20 h-20'/>
