@@ -1,0 +1,33 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SectionDetail from "../../components/astroComponents/SectionDetail.astro";
+import GetInTouchForm from "../../components/reactComponents/GetInTouchForm";
+---
+<BaseLayout>
+    <SectionDetail
+            title="Financial Management Services "
+            imageSrc="../../servicesImage/FinancialManagement.webp"
+            alt="Financial Management Image"   >
+        <div class="max-w-4xl mx-auto">
+            <div class="text-xl space-y-5">
+                <section>
+                    <h2 class="font-bold">• Bookkeeping (QuickBooks & Xero)</h2>
+                    <p class="p-2 text-base">Accurate, cloud-based bookkeeping services tailored to your business model.</p>
+                </section>
+                <section>
+                    <h2 class="font-bold">• Financial Statement Preparation</h2>
+                    <p class="p-2 text-base">Monthly, quarterly, and annual financial statements prepared in accordance with IFRS standards. </p>
+                </section>
+                <section>
+                    <h2 class="font-bold">• Managerial Accounting & Cost Analysis</h2>
+                    <p class="p-2 text-base">Track profitability, manage cost centers, and analyze variances across departments or products.</p>
+                </section>
+                <section>
+                    <h2 class="font-bold">• Budgeting, Forecasting & Planning</h2>
+                    <p class="p-2 text-base">Collaborative, forward-looking financial planning that aligns with your strategic goals.</p>
+                </section>
+            </div>
+        </div>
+    </SectionDetail>
+    <GetInTouchForm client:only="react"/>
+</BaseLayout>

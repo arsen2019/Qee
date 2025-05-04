@@ -1,0 +1,56 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SectionDetail from "../../components/astroComponents/SectionDetail.astro";
+import GetInTouchForm from "../../components/reactComponents/GetInTouchForm";
+---
+<BaseLayout>
+    <SectionDetail
+            title="Internal Audit"
+            imageSrc="../../servicesImage/InternalAudit.webp"
+            alt="SectionDetail image description"   >
+    <div class="max-w-4xl mx-auto">
+        <p class="mb-6 text-base">
+            We offer a complete range of internal audit solutions—designed to meet organizations wherever they are on
+            their journey, from building audit capabilities to driving strategic impact.
+        </p>
+
+        <div class="text-base space-y-5">
+            <section>
+                <h2 class="font-bold">• Internal Audit Outsourcing & Co-Sourcing</h2>
+                <p class="mt-1"><strong>When you need:</strong> Full coverage or expert support.</p>
+                <p>Flexible and scalable solutions whether you're fully outsourcing your internal audit function or
+                    strengthening your in-house team with specialist support.</p>
+            </section>
+
+            <section>
+                <h2 class="font-bold">• Internal Audit Function Setup & Transformation</h2>
+                <p class="mt-1"><strong>When you need:</strong> To establish or reinvent your audit function.</p>
+                <p>End-to-end support to set up or transform internal audit in alignment with international standards
+                    (like the IIA), tailored to your industry and risk profile.</p>
+            </section>
+
+            <section>
+                <h2 class="font-bold">• Risk-Based Audit Planning & Advisory</h2>
+                <p class="mt-1"><strong>When you need:</strong> Smarter audit focus and coverage.</p>
+                <p>Development and refinement of annual and multi-year audit plans based on risk assessments—ensuring
+                    your audits deliver maximum value where it matters most.</p>
+            </section>
+
+            <section>
+                <h2 class="font-bold">• Governance, Risk & Compliance (GRC) Advisory</h2>
+                <p class="mt-1"><strong>When you need:</strong> Stronger oversight and control frameworks.</p>
+                <p>Strategic consulting on governance models, enterprise risk management, internal controls, and
+                    compliance frameworks—enabling long-term resilience.</p>
+            </section>
+
+            <section>
+                <h2 class="font-bold">• Internal Audit Training & Capacity Building</h2>
+                <p class="mt-1"><strong>When you need:</strong> To develop skills and build internal strength.</p>
+                <p>Customized training, hands-on workshops, and certification support (e.g., CIA prep) to empower your
+                    audit team and foster a culture of continuous learning.</p>
+            </section>
+        </div>
+    </div>
+    </SectionDetail>
+    <GetInTouchForm client:only="react"/>
+</BaseLayout>
