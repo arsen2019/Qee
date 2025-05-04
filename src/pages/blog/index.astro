@@ -4,22 +4,40 @@ import BlogPost from "../../components/reactComponents/BlogPost";
 import blogImage from '../../../public/temp/images/3ca4e4ab4950917ac359c2e468850d1a58114eee.png'
 import blogImage2 from '../../../public/temp/images/1921479f3f3e8558ed8db9dcab1b1a0c6fe0a86c.png'
 import GetInTouchForm from "../../components/reactComponents/GetInTouchForm";
+import BlogGreeting from "../../../public/staticImages/blogGreeting.webp"
 ---
 <BaseLayout title="Blog">
-    <BlogPost img={blogImage} title='Navigating Risk Management in the Digital Age'
-              content="Information technology (IT) is a set of related fields within information and communications technology (ICT), that encompass computer systems, software, programming languages, data and information processing, and storage. Information technology is an application of computer science and computer engineering.Information technology (IT) is a set of related fields within information and communications technology (ICT), that encompass computer systems, software, programming languages, data and information processing, and storage. Information technology is an application of computer science and computer engineering."
-              number={1}/>
-    <BlogPost img={blogImage2} title='The Importance of Internal Audit in Financial Institutions'
-              content="Information technology (IT) is a set of related fields within information and communications technology (ICT), that encompass computer systems, software, programming languages, data and information processing, and storage. Information technology is an application of computer science and computer engineering.Information technology (IT) is a set of related fields within information and communications technology (ICT), that encompass computer systems, software, programming languages, data and information processing, and storage. Information technology is an application of computer science and computer engineering."
-              number={2}/>
-    <BlogPost img={blogImage2} title='How IT Governance Drives Business Performance'
-              content="Information technology (IT) is a set of related fields within information and communications technology (ICT), that encompass computer systems, software, programming languages, data and information processing, and storage. Information technology is an application of computer science and computer engineering.Information technology (IT) is a set of related fields within information and communications technology (ICT), that encompass computer systems, software, programming languages, data and information processing, and storage. Information technology is an application of computer science and computer engineering."
-              number={3}/>
-    <BlogPost img={blogImage2} title='TTop Trends in Financial Reporting for 2025'
-              content="Information technology (IT) is a set of related fields within information and communications technology (ICT), that encompass computer systems, software, programming languages, data and information processing, and storage. Information technology is an application of computer science and computer engineering.Information technology (IT) is a set of related fields within information and communications technology (ICT), that encompass computer systems, software, programming languages, data and information processing, and storage. Information technology is an application of computer science and computer engineering."
-              number={4}/>
+    <main>
+        <div class="BlogGreeting aspect-[1.5] md:aspect-auto relative w-full h-1/2">
+            <div class="relative  ">
+                <img src={BlogGreeting.src} alt="GetStarted"
+                     class="w-full aspect-[1.5] md:aspect-auto object-cover"/>
+            </div>
 
-    <GetInTouchForm client:only="react"/>
+            <div class="absolute inset-0 z-20 flex font-semibold flex-col lg:text-[40px] md:text-[30px] sm:text-[25px] text-[14px] justify-center  items-center text-center bg-[rgba(0,0,0,0.6)] text-white py-5 px-10 lg:px-20">
+                <p class="w-full">
+                    Stay informed with the latest industry insights, best practices, and consulting tips. Our blog
+                    covers topics ranging from internal audit trends to digital transformation strategies. Explore the
+                    resources below to stay ahead of the curve.
+                </p>
+            </div>
+        </div>
+
+        <BlogPost img={blogImage} title='Navigating Risk Management in the Digital Age'
+                  content="Information technology (IT) is a set of related fields within information and communications technology (ICT), that encompass computer systems, software, programming languages, data and information processing, and storage. Information technology is an application of computer science and computer engineering.Information technology (IT) is a set of related fields within information and communications technology (ICT), that encompass computer systems, software, programming languages, data and information processing, and storage. Information technology is an application of computer science and computer engineering."
+                  number={1}/>
+        <BlogPost img={blogImage2} title='The Importance of Internal Audit in Financial Institutions'
+                  content="Information technology (IT) is a set of related fields within information and communications technology (ICT), that encompass computer systems, software, programming languages, data and information processing, and storage. Information technology is an application of computer science and computer engineering.Information technology (IT) is a set of related fields within information and communications technology (ICT), that encompass computer systems, software, programming languages, data and information processing, and storage. Information technology is an application of computer science and computer engineering."
+                  number={2}/>
+        <BlogPost img={blogImage2} title='How IT Governance Drives Business Performance'
+                  content="Information technology (IT) is a set of related fields within information and communications technology (ICT), that encompass computer systems, software, programming languages, data and information processing, and storage. Information technology is an application of computer science and computer engineering.Information technology (IT) is a set of related fields within information and communications technology (ICT), that encompass computer systems, software, programming languages, data and information processing, and storage. Information technology is an application of computer science and computer engineering."
+                  number={3}/>
+        <BlogPost img={blogImage2} title='TTop Trends in Financial Reporting for 2025'
+                  content="Information technology (IT) is a set of related fields within information and communications technology (ICT), that encompass computer systems, software, programming languages, data and information processing, and storage. Information technology is an application of computer science and computer engineering.Information technology (IT) is a set of related fields within information and communications technology (ICT), that encompass computer systems, software, programming languages, data and information processing, and storage. Information technology is an application of computer science and computer engineering."
+                  number={4}/>
+
+        <GetInTouchForm client:only="react"/>
+    </main>
 
 
 </BaseLayout>

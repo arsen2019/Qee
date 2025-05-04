@@ -125,7 +125,7 @@ export default function GetInTouchForm() {
     };
 
     return (
-        <div className="bg-white p-6 rounded-lg shadow-lg lg:px-40 px-10 mb-10 mx-auto">
+        <div className="bg-white p-6 rounded-lg md:shadow-lg lg:px-40 px-10 mb-10 mx-auto">
             <h2 className="text-2xl font-semibold mb-5">Get In Touch</h2>
 
             <form onSubmit={handleSubmit}>

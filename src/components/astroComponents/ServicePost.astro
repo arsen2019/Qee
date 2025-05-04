@@ -4,10 +4,10 @@ const { header, imgUrl, paragraph, borderLeft, number = false } = Astro.props;
 const isOddRow = Math.floor(number / 2) % 2 !== 0;
 ---
 
-<article class={`px-4 ${borderLeft ? 'lg:border-l-2 lg:pl-16 border-[#04061F]' : ''}`}>
-    <h1 class="mb-10 text-center text-[22px] md:text-[28px] font-bold font-sans">{header}</h1>
+<article class={``}>
+    <h1 class="mb-10 text-center text-[22px] md:text-[28px] font-bold">{header}</h1>
 
-    <div class="flex-col md:flex-row items-center gap-16 flex">
+    <div class={`flex-col md:flex-row gap-16 flex  ${borderLeft ? 'lg:border-l-2 lg:pl-16 lg:ml-16 border-[#04061F]' : ''}`}>
         <div class={`md:w-1/2 text-[15px] md:text-[17px] ${isOddRow ? 'order-1' : 'order-2'}`}>
             <p>{paragraph}</p>
         </div>
