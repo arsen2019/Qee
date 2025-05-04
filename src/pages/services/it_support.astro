@@ -1,0 +1,48 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SectionDetail from "../../components/astroComponents/SectionDetail.astro";
+import GetInTouchForm from "../../components/reactComponents/GetInTouchForm";
+---
+<BaseLayout>
+    <SectionDetail
+            title="IT support, governance and cybersecurity"
+            imageSrc="../../servicesImage/ITSupport.webp"
+            alt="IT support Image">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-base space-y-5">
+                <section>
+                    <h2 class="font-bold">• IT Services & Cybersecurity Solutions</h2>
+                    <p class="mt-1 p-2 text-base">We offer a complete range of IT and cybersecurity solutions—designed
+                        to meet organizations wherever they are on their technology journey, from basic infrastructure
+                        support to advanced cloud and security strategies.</p>
+                </section>
+                <section>
+                    <h2 class="font-bold">• Network Security</h2>
+                    <p class="mt-1 p-2 font-bold text-base">When you need: Stronger protection against threats.</p>
+                    <p class="mt-1 px-2 text-base"> End-to-end network security solutions to protect your systems, data,
+                        and communications from evolving cyber threats.</p>
+                </section>
+                <section>
+                    <h2 class="font-bold">• Mobile Device Management (MDM)</h2>
+                    <p class="mt-1 p-2 font-bold text-base">When you need: Secure and seamless mobile operations.</p>
+                    <p class="mt-1 px-2 text-base">Comprehensive mobile device management to control, secure, and
+                        monitor mobile endpoints across your organization.</p>
+                </section>
+                <section>
+                    <h2 class="font-bold">• Hardware Installation and Maintenance</h2>
+                    <p class="mt-1 p-2 font-bold text-base">When you need: Reliable hardware setup and support.</p>
+                    <p class="mt-1 px-2 text-base">
+                        Professional installation and maintenance of IT hardware—from workstations to servers—ensuring
+                        smooth operation and minimal downtime.
+                    </p>
+                </section>
+                <section>
+                    <h2 class="font-bold">• Database Management Services</h2>
+                    <p class="mt-1 p-2 font-bold text-base">When you need: Secure, optimized data systems.</p>
+                    <p class="mt-1 px-2 text-base"> Comprehensive database management solutions to ensure data integrity, availability, and performance.</p>
+                </section>
+            </div>
+        </div>
+    </SectionDetail>
+    <GetInTouchForm client:only="react"/>
+</BaseLayout>
