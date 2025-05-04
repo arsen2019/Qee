@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import FeedbackPopUp from "./popUps/FeedbackPopUp";
 import { postData } from '../../utils/utils';
 
-// Define types for form data
 interface FormData {
     name: string;
     email: string;
@@ -15,7 +14,6 @@ interface FormData {
     contactMethod: "whatsapp" | "email" | "";
 }
 
-// Type for service options
 interface ServiceOption {
     id: string;
     label: string;
@@ -46,7 +44,6 @@ export default function GetInTouchForm() {
         { id: 'marketing', label: 'Marketing' },
     ];
 
-    // Handle click outside of dropdown to close it
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -68,11 +65,9 @@ export default function GetInTouchForm() {
         const updatedServices = [...formData.services];
 
         if (updatedServices.includes(serviceId)) {
-            // Remove service if already selected
             const index = updatedServices.indexOf(serviceId);
             updatedServices.splice(index, 1);
         } else {
-            // Add service if not selected
             updatedServices.push(serviceId);
         }
 
@@ -82,7 +77,6 @@ export default function GetInTouchForm() {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        // Prepare data for submission
         const submissionData = { ...formData };
         if (formData.services.includes('other') && formData.otherService) {
             submissionData.services = formData.services.filter(s => s !== 'other');
@@ -91,7 +85,6 @@ export default function GetInTouchForm() {
 
         postData('/contact', submissionData);
 
-        // Show feedback popup
         setIsFeedbackOpen(true);
         setTimeout(() => setIsFeedbackOpen(false), 2000);
 
@@ -113,7 +106,6 @@ export default function GetInTouchForm() {
         setFormData({ ...formData, contactMethod: method });
     };
 
-    // Display selected services as a comma-separated string
     const displaySelectedServices = () => {
         if (formData.services.length === 0) return "Select Services";
 
@@ -133,7 +125,7 @@ export default function GetInTouchForm() {
     };
 
     return (
-        <div className="bg-white p-6 rounded-lg shadow-lg max-w-2xl mx-auto">
+        <div className="bg-white p-6 rounded-lg shadow-lg lg:px-40 px-10 mb-10 mx-auto">
             <h2 className="text-2xl font-semibold mb-5">Get In Touch</h2>
 
             <form onSubmit={handleSubmit}>
