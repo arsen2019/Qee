@@ -1,0 +1,54 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SectionDetail from "../../components/astroComponents/SectionDetail.astro";
+import GetInTouchForm from "../../components/reactComponents/GetInTouchForm";
+---
+<BaseLayout>
+    <SectionDetail
+            title="IT audit and external assurance"
+            imageSrc="../../servicesImage/ITAudit.webp"
+            alt="IT audit">
+        <div class="max-w-4xl mx-auto">
+            <p class="mb-6 text-base">We offer a full range of IT audit and assurance solutions—designed to support
+                organizations at every stage of their risk management and compliance journey, from baseline assessments
+                to advanced cybersecurity validation.</p>
+
+            <div class="text-lg space-y-5">
+                <section>
+                    <h2 class="font-bold">• IT Audit</h2>
+                    <p class="mt-1 p-2 font-bold text-base">When you need: Independent review of IT risks and
+                        controls.</p>
+                    <p class="mt-1 px-2 text-base">Comprehensive audits of IT systems, infrastructure, and processes to
+                        identify gaps, evaluate risk exposures, and ensure alignment with best practices and regulatory
+                        requirements.
+                    </p>
+                </section>
+                <section>
+                    <h2 class="font-bold">• ISO 27000 Assessments</h2>
+                    <p class="mt-1 p-2 font-bold text-base">When you need: Validation against international information
+                        security standards.</p>
+                    <p class="mt-1 px-2 text-base">Detailed assessments and advisory services for ISO/IEC 27000 series
+                        compliance—supporting certification readiness and strengthening your information security
+                        management system (ISMS).</p>
+                </section>
+                <section>
+                    <h2 class="font-bold">• Cybersecurity Maturity Assessments</h2>
+                    <p class="mt-1 p-2 font-bold text-base">When you need: A clear view of your cyber resilience.</p>
+                    <p class="mt-1 px-2 text-base"> In-depth evaluations of cybersecurity posture based on industry
+                        frameworks (e.g., NIST, CIS) to benchmark maturity, uncover vulnerabilities, and prioritize
+                        improvements.</p>
+                </section>
+                <section>
+                    <h2 class="font-bold">• Penetration Testing (Pentest)</h2>
+                    <p class="mt-1 p-2 font-bold text-base">When you need: Real-world security testing.</p>
+                    <p class="mt-1 px-2 text-base">Controlled, simulated cyberattacks to identify security weaknesses
+                        before malicious actors do—providing actionable insights to improve your defenses and
+                        resilience.</p>
+                </section>
+
+
+            </div>
+        </div>
+    </SectionDetail>
+    <GetInTouchForm client:only="react"/>
+</BaseLayout>

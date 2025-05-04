@@ -2,7 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Faqs from "../components/reactComponents/Faqs";
 import SectionDetail from "../components/astroComponents/SectionDetail.astro";
-import OneSevice from "../components/astroComponents/OneSevice.astro";
+import OneService from "../components/astroComponents/OneService.astro";
 import GetInTouchForm from "../components/reactComponents/GetInTouchForm";
 import ScheduleForm from "../components/reactComponents/ScheduleForm";
 import GetStartedPopUp from "../components/reactComponents/popUps/GetStartedPopUp";
@@ -10,43 +10,6 @@ import GetStartedPopUp from "../components/reactComponents/popUps/GetStartedPopU
 
 
 <BaseLayout title="Home">
-
-    <SectionDetail
-            title="Internal Audit"
-            imageSrc="InternalAudit.webp"
-            alt="SectionDetail image description"
-            description="Our internal audit services provide a comprehensive review of your organization’s internal controls, processes, and operations. We ensure your business operates efficiently, complies with regulations, and mitigates risks. Our team conducts thorough audits to identify gaps, improve controls, and help you maintain a robust governance framework. Our internal audit services provide a comprehensive review of your organization’s internal controls, processes, and operations. We ensure your business operates efficiently, complies with regulations, and mitigates risks. Our team conducts thorough audits to identify gaps, improve controls, and help you maintain a robust governance framework.Our internal audit services provide a comprehensive review of your organization’s internal controls, processes, and operations. We ensure your business operates efficiently, complies with regulations, and mitigates risks. Our team conducts thorough audits to identify gaps, improve controls, and help you maintain a robust governance framework."
-    />
-
-
-    <section class="my-10 mx-auto max-w-7xl px-4">
-        <div class="border-t-2 border-gray-400 w-full">
-            <h1 class=" xl:text-4xl lg:text-3xl text-2xl font-semibold py-5 ">SERVICES</h1>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4 ">
-                <OneSevice imageUrl="InternalAudit.webp" alt="IntAud" title="Internal Audit"
-                           subTitle="Internal audit is more than compliance—it’s your organization’s early warning system and strategic advisor . . ."/>
-            </div>
-        </div>
-    </section>
-    <div class="GetStatedContainer my-20 relative w-full  overflow-hidden">
-        <div class="relative w-full ">
-            <img src="/staticImages/getStarted.webp" alt="GetStarted"
-                 class="w-full min-h-[150px] max-h-[250px] md:max-h-[250px] object-cover"/>
-        </div>
-
-        <div class="absolute inset-0 z-20 flex md:flex-row md:gap-10 gap-4 flex-col lg:text-[25px] md:text-[20px] text-[16px] justify-center md:justify-between items-center text-center bg-[rgba(0,0,0,0.6)] text-white py-5 px-10 lg:px-20">
-            <p class="md:w-2/3">
-                If you’re ready to enhance your organization’s operations, ensure compliance, and strengthen your risk
-                management practices, get in touch with us today for a tailored consultation.
-            </p>
-            <div class="flex w-1/2 md:w-1/3 justify-center">
-                <GetStartedPopUp style={{
-                    width: '100%',
-                    fontWeight: '700',
-                }} buttonText="Get Started" client:visible/>
-            </div>
-        </div>
-    </div>
 
     <section class="my-10 mx-auto max-w-7xl px-4">
         <div class="border-t-2 border-gray-400 w-full">
@@ -83,12 +46,80 @@ import GetStartedPopUp from "../components/reactComponents/popUps/GetStartedPopU
                 </div>
             </div>
             <div class="md:w-2/5 justify-center items-center  ">
-                <img src="aboutImg.webp" class=" min-w-full min-h-full shadow-2xl flex-shrink-0 object-cover"/>
+                <img src="aboutImg.webp" class=" min-w-full min-h-full flex-shrink-0 object-cover"/>
             </div>
         </div>
     </section>
-    <GetInTouchForm client:only="react"/>
-    <br/>
+
+    <section class="my-10 mx-auto max-w-7xl px-4">
+        <div class="border-t-2 border-gray-400 w-full">
+            <h1 class=" xl:text-4xl lg:text-3xl text-2xl font-semibold py-5 ">SERVICES</h1>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ">
+                <OneService imageUrl="/servicesImage/InternalAudit.webp" alt="IntAud" title="Internal Audit"
+                            href="/services/internal_audit/"
+                            subTitle="We build, enhance, or fully manage internal audit functions with risk-based"/>
+                <OneService imageUrl="/servicesImage/FinancialManagement.webp" alt="Financial Management Image"
+                            title="Financial Management"
+                            href="/services/financial_management/"
+                            subTitle="Clarity in Numbers. Confidence in Decisions. Control Over Your Finances"/>
+                <OneService imageUrl="/servicesImage/EQAAudit.webp" alt="EQA Image"
+                            title="External Quality Assessment (EQA)"
+                            href="/services/eqa_audit/"
+                            subTitle="Enhancing Confidence. Elevating Performance. Enabling Improvement."/>
+                <OneService imageUrl="/servicesImage/ITAudit.webp" alt="IT Audit Image"
+                            title="IT audit and external assurance"
+                            href="/services/it_audit/"
+                            subTitle="We deliver independent IT audits and assurance services to help organizations strengthen controls, manage technology risks, and build cyber resilience."/>
+                <OneService imageUrl="/servicesImage/ITSupport.webp" alt="IT support Image"
+                            title="IT support, governance and cybersecurity"
+                            href="/services/it_support/"
+                            subTitle="We design, build, and manage robust IT environments that strengthen business continuity, safeguard assets, and drive operational efficiency."/>
+
+
+            </div>
+        </div>
+    </section>
+
+    <div class="GetStatedContainer relative w-full  overflow-hidden">
+        <div class="relative w-full ">
+            <img src="/staticImages/getStarted.webp" alt="GetStarted"
+                 class="w-full min-h-[150px] max-h-[250px] md:max-h-[250px] object-cover"/>
+        </div>
+
+        <div class="absolute inset-0 z-20 flex md:flex-row md:gap-10 gap-4 flex-col lg:text-[25px] md:text-[20px] text-[16px] justify-center md:justify-between items-center text-center bg-[rgba(0,0,0,0.6)] text-white py-5 px-10 lg:px-20">
+            <p class="md:w-2/3">
+                If you’re ready to enhance your organization’s operations, ensure compliance, and strengthen your risk
+                management practices, get in touch with us today for a tailored consultation
+            </p>
+            <div class="flex w-1/2 md:w-1/3 justify-center">
+                <GetStartedPopUp style={{
+                    width: '100%',
+                    fontWeight: '700',
+                }} buttonText="Get Started" client:visible/>
+            </div>
+        </div>
+    </div>
+    <div class="relative w-full ">
+        <div class="mb-50"></div>
+
+        <ScheduleForm client:only="react"/>
+
+        <section class="my-10 mx-auto max-w-7xl px-4">
+            <div class="border-t-2 border-gray-400 w-full">
+                <h1 class=" xl:text-4xl lg:text-3xl text-2xl font-semibold py-5 ">TEAM</h1>
+            </div>
+            <p class="py-4">Our team brings over a decade of hands-on experience in delivering internal audit, IT audit, IT
+                governance, financial reporting, and managerial accounting services—backed by globally recognized
+                certifications such as CIA, CISA, CMA, and MBA. We provide high-impact consulting and assurance
+                services, helping organizations enhance risk management, strengthen internal controls, and align
+                financial and IT practices with international standards. With a powerful blend of technical expertise
+                and strategic insight, our professionals deliver tailored solutions that drive performance, ensure
+                compliance, and support informed decision-making across industries.</p>
+        </section>
+        <div class="mb-20"></div>
+        <GetInTouchForm client:only="react"/>
+    </div>
+
     <section class="my-10 mx-auto max-w-7xl px-4">
         <div class="border-t-2 border-gray-400 w-full">
             <h1 class=" xl:text-4xl lg:text-3xl text-2xl font-semibold py-5 ">FAQ<span
@@ -96,11 +127,4 @@ import GetStartedPopUp from "../components/reactComponents/popUps/GetStartedPopU
         </div>
         <Faqs client:only="react"/>
     </section>
-    <div class="relative w-full ">
-        <div class="mb-50"></div>
-
-        <ScheduleForm client:only="react"/>
-        <div class="mb-50"></div>
-
-    </div>
 </BaseLayout>
