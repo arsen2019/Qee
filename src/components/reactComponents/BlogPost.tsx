@@ -17,9 +17,9 @@ const BlogPost: React.FC<BlogPostProps> = ({ title, content, img, number }) => {
 
     return (
         <section className="mb-16 blog_section">
-            <h2 className="text-2xl font-bold my-10 justify-center flex">{title}</h2>
-            <article className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                <div className={`blog_content text-[20px] flex-1 sm:order-1 ${isEven ? 'md:order-2' : 'md:order-1'}`}>
+            <h2 className="text-2xl font-bold mt-10 mb-15 md:mb-32 justify-center flex">{title}</h2>
+            <article className={`grid grid-cols-1 ${isEven ? 'md:grid-cols-[1fr_2fr]' : 'md:grid-cols-[2fr_1fr]'} gap-10`}>
+                <div className={`blog_content text-[20px] flex items-center flex-1 sm:order-1 ${isEven ? 'md:order-2' : 'md:order-1'}`}>
                     <div className=" prose-lg max-w-none prose-a:text-blue-600 hover:prose-a:text-blue-800 prose-a:underline">
                         <ReactMarkdown
                             children={content}
