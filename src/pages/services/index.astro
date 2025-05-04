@@ -1,6 +1,69 @@
 ---
+// index.astro
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import ServicePost from "../../components/astroComponents/ServicePost.astro";
+import ServiceImg1 from "../../../public/temp/images/1921479f3f3e8558ed8db9dcab1b1a0c6fe0a86c.png";
+import ServiceImg2 from "../../../public/temp/images/3ca4e4ab4950917ac359c2e468850d1a58114eee.png";
+import GetInTouchForm from "../../components/reactComponents/GetInTouchForm";
 ---
-<BaseLayout>
 
+<BaseLayout>
+    <main class="my-10">
+        <div class="grid lg:grid-cols-2 grid-cols-1 gap-10 max-w-7xl mx-auto mb-20">
+            <ServicePost
+                    header="Internal Audit"
+                    imgUrl={ServiceImg1}
+                    paragraph="Our internal audit services provide a comprehensive review of your organization’s internal controls, processes, and operations. We ensure your business operates efficiently, complies with regulations, and mitigates risks..."
+                    number={0}
+            />
+            <ServicePost
+                    header="Risk Assessment & Management"
+                    imgUrl={ServiceImg2}
+                    borderLeft={true}
+                    paragraph="We help you identify, assess, and manage risks within your organization. Our risk management services focus on understanding potential threats..."
+                    number={1}
+
+            />
+            <ServicePost
+                    header="Compliance Audits"
+                    imgUrl={ServiceImg2}
+                    paragraph="We offer specialized compliance audits to ensure your organization meets regulatory standards and industry requirements..."
+                    number={2}
+
+            />
+
+            <ServicePost
+                    header="IT Audits"
+                    imgUrl={ServiceImg1}
+                    borderLeft={true}
+                    paragraph="Our IT audit services ensure that your information systems are secure, reliable, and aligned with organizational goals. We evaluate the effectiveness of your IT governance, risk management strategies, and security protocols. Our team helps you optimize IT operations, protect data, and ensure compliance with relevant industry standards and regulations, including data privacy laws."
+                    number={3}
+            />
+            <ServicePost
+                    header="IT Management Advisory"
+                    imgUrl={ServiceImg1}
+                    paragraph="Our IT audit services ensure that your information systems are secure, reliable, and aligned with organizational goals. We evaluate the effectiveness of your IT governance, risk management strategies, and security protocols. Our team helps you optimize IT operations, protect data, and ensure compliance with relevant industry standards and regulations, including data privacy laws."
+                    number={4}
+
+            />
+            <ServicePost
+                    header="Process Improvement Advisory"
+                    imgUrl={ServiceImg2}
+                    borderLeft={true}
+                    paragraph="Our process improvement services are designed to help you identify inefficiencies and streamline your operations. Whether it’s automating manual processes, optimizing workflows, or enhancing internal controls, we work closely with your team to implement solutions that drive efficiency, reduce costs, and improve overall performance."
+                    number={5}
+
+            />
+            <ServicePost
+                    header="External Quality Assessment"
+                    imgUrl={ServiceImg2}
+                    paragraph="Enhance the credibility and effectiveness of your internal audit function through independent evaluations."
+                    number={6}
+
+            />
+
+        </div>
+
+        <GetInTouchForm client:only="react"/>
+    </main>
 </BaseLayout>

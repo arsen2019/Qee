@@ -35,21 +35,21 @@ function isActivePath(currentPath: string, pathPrefix: string) {
                 <ul class="flex items-center xl:gap-12 lg:gap-8 h-16 ">
                     <li class=`flex ${
                         isActivePath(path, "/") ? "underline-text" : ""
-                    }`><a href="/">Services</a></li>
-                    <!--<li class={`flex ${-->
-                    <!--    isActivePath(path, "/about") ? "underline-text" : ""-->
-                    <!--}`}><a href="/services">Services</a></li>-->
+                    }`><a href="/">Home</a></li>
+                    <li class={`flex ${
+                        isActivePath(path, "/services") ? "underline-text" : ""
+                    }`}><a href="/services">Services</a></li>
                     <li class=`flex ${
                         isActivePath(path, "/capabilities") ? "underline-text" : ""
                     }`><a href="/capabilities">Our Capabilities</a></li>
                     <li class=`flex ${
-                        isActivePath(path, "/clients") ? "underline-text" : ""
+                        isActivePath(path, "/blog") ? "underline-text" : ""
                     }`><a href="/blog">Blog</a></li>
                     <li class=`flex ${
-                        isActivePath(path, "/connect") ? "underline-text" : ""
+                        isActivePath(path, "/career") ? "underline-text" : ""
                     }`><a href="/career">Career</a></li>
                     <li class=`flex ${
-                        isActivePath(path, "/blog") ? "underline-text" : ""
+                        isActivePath(path, "/contact") ? "underline-text" : ""
                     }`><a href="/contact">Contact</a></li>
                 </ul>
             </div>

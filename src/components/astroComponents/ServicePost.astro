@@ -1,0 +1,27 @@
+---
+// ServicePost.astro
+const { header, imgUrl, paragraph, borderLeft, number = false } = Astro.props;
+const isOddRow = Math.floor(number / 2) % 2 !== 0;
+---
+
+<article class={`px-4 ${borderLeft ? 'lg:border-l-2 lg:pl-16 border-[#04061F]' : ''}`}>
+    <h1 class="mb-10 text-center text-[22px] md:text-[28px] font-bold font-sans">{header}</h1>
+
+    <div class="flex-col md:flex-row items-center gap-16 flex">
+        <div class={`md:w-1/2 text-[15px] md:text-[17px] ${isOddRow ? 'order-1' : 'order-2'}`}>
+            <p>{paragraph}</p>
+        </div>
+
+        <div class=`w-fit h-fit relative  ${isOddRow ? 'order-2 ' : 'order-1'}`>
+            <div class="absolute w-full  h-full bg-[#033271] -translate-x-4 translate-y-4 max-w-[300px]"></div>
+            <div class="absolute w-full h-full bg-[#033271] translate-x-4 -translate-y-4 max-w-[300px]"></div>
+            <div class="relative z-10">
+                <img
+                        src={imgUrl.src}
+                        alt={header}
+                        class="aspect-square object-cover w-full max-w-[300px] mx-auto sm:mx-0"
+                />
+            </div>
+        </div>
+    </div>
+</article>
