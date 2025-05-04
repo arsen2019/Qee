@@ -2,7 +2,6 @@ import { useState } from "react";
 import FeedbackPopUp from "./popUps/FeedbackPopUp";
 import { postData } from '../../utils/utils';
 
-// Define types for form data
 interface FormData {
     month: string;
     day: number;
@@ -18,7 +17,6 @@ interface FormData {
     contactMethod: "whatsapp" | "email" | "";
 }
 
-// Type for service options
 interface ServiceOption {
     id: string;
     label: string;
@@ -68,11 +66,9 @@ export default function ScheduleForm() {
         const updatedServices = [...formData.services];
 
         if (updatedServices.includes(serviceId)) {
-            // Remove service if already selected
             const index = updatedServices.indexOf(serviceId);
             updatedServices.splice(index, 1);
         } else {
-            // Add service if not selected
             updatedServices.push(serviceId);
         }
 
@@ -98,7 +94,6 @@ export default function ScheduleForm() {
         setFormData({ ...formData, contactMethod: method });
     };
 
-    // Display selected services as a comma-separated string
     const displaySelectedServices = () => {
         if (formData.services.length === 0) return "Service";
 
@@ -118,7 +113,7 @@ export default function ScheduleForm() {
     };
 
     return (
-        <div className="bg-white p-6 rounded-lg shadow-lg max-w-2xl mx-auto">
+        <div className="bg-white p-6 rounded-lg md:shadow-lg lg:px-40 px-10 mb-10 mx-auto">
             <h2 className="text-2xl font-semibold mb-6">Schedule a Free Consultation</h2>
 
             <form onSubmit={handleSubmit}>

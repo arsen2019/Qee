@@ -21,7 +21,8 @@ export default function HamburgerMenu({activePath}: Props) {
     }, [isOpen]);
 
     const links = [
-        {path: "/", label: "SectionDetail"},
+        {path: "/", label: "Home"},
+        {path: "/services", label: "Services"},
         {path: "/capabilities", label: "Our Capabilities"},
         {path: "/blog", label: "Blog"},
         {path: "/career", label: "Career"},
@@ -74,7 +75,7 @@ export default function HamburgerMenu({activePath}: Props) {
                             <li key={path} className="group">
                                 <a
                                     href={path}
-                                    className={`flex justify-end gap-4 items-center py-2 hover:pr-5 transition-all duration-300 ease-in-out ${
+                                    className={`flex justify-end gap-4 items-center py-2 hover:pr-5 hover:text-[#3F5D8F] transition-all duration-300 ease-in-out ${
                                         isActive ? "text-[#3F5D8F] font-semibold pr-5" : "text-black"
                                     }`}
                                 >
