@@ -6,6 +6,7 @@ import GetInTouchForm from "../components/reactComponents/GetInTouchForm";
 import ScheduleForm from "../components/reactComponents/ScheduleForm";
 import GetStartedPopUp from "../components/reactComponents/popUps/GetStartedPopUp";
 import HomeGreeting from "../components/reactComponents/HomeGreeting";
+import CertificateSlider from "../components/astroComponents/CertificateSlider.astro";
 ---
 
 
@@ -52,7 +53,7 @@ import HomeGreeting from "../components/reactComponents/HomeGreeting";
         </div>
     </section>
 
-    <section class="my-10 mx-auto max-w-7xl px-4">
+    <section class="my-10 mx-auto max-w-7xl px-4" id="services">
         <div class="border-t-2 border-gray-400 w-full">
             <h1 class=" xl:text-4xl lg:text-3xl text-2xl font-semibold py-5 ">SERVICES</h1>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ">
@@ -101,11 +102,13 @@ import HomeGreeting from "../components/reactComponents/HomeGreeting";
         </div>
     </div>
     <div class="relative w-full ">
-        <div class="mb-50"></div>
+        <div class="mb-10"></div>
+        <div id="consultation" class="pt-18">
+            <ScheduleForm client:only="react"/>
 
-        <ScheduleForm client:only="react"/>
+        </div>
 
-        <section class="my-10 mx-auto max-w-7xl px-4">
+        <section class="my-10 mx-auto ">
             <div class="border-t-2 border-gray-400 w-full">
                 <h1 class=" xl:text-4xl lg:text-3xl text-2xl font-semibold py-5 ">TEAM</h1>
             </div>
@@ -118,6 +121,8 @@ import HomeGreeting from "../components/reactComponents/HomeGreeting";
                 compliance, and support informed decision-making across industries.</p>
         </section>
         <div class="mb-20"></div>
+
+        <CertificateSlider/>
         <GetInTouchForm client:only="react"/>
     </div>
 
