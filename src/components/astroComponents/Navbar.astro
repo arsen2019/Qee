@@ -2,6 +2,7 @@
 import {Image} from 'astro:assets';
 import logo from '../../../public/logos/navbarLogo.svg';
 import HamburgerMenu from '../reactComponents/HamburgerMenu'
+import ScrollNavButton from "../reactComponents/ScrollNavButton";
 
 const path = Astro.url.pathname
 
@@ -38,7 +39,13 @@ function isActivePath(currentPath: string, pathPrefix: string) {
                     }`><a href="/">Home</a></li>
                     <li class={`flex ${
                         isActivePath(path, "/services") ? "underline-text" : ""
-                    }`}><a href="/services">Services</a></li>
+                    }`}><ScrollNavButton
+                            targetId="services"
+                            to="/"
+                            client:visible
+                    >
+                        Services
+                    </ScrollNavButton></li>
                     <li class=`flex ${
                         isActivePath(path, "/blog") ? "underline-text" : ""
                     }`><a href="/blog">Blog</a></li>
@@ -49,9 +56,14 @@ function isActivePath(currentPath: string, pathPrefix: string) {
             </div>
             <div class="navBtn flex items-center xl:text-[20px]  text-md font-semibold ">
                 <div class="wrapper">
-                    <button class="py-[10px] xl:px-[40px] lg:px-[30px] bg-[#033271] rounded-[8px] text-white flex justify-center">
+                    <ScrollNavButton
+                            targetId="consultation"
+                            to="/"
+                            className="py-[10px] xl:px-[40px] lg:px-[30px] bg-[#033271] rounded-[8px] text-white flex justify-center"
+                            client:visible
+                    >
                         Schedule a free consultation
-                    </button>
+                    </ScrollNavButton>
 
                 </div>
             </div>
