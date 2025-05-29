@@ -14,7 +14,7 @@ export default function GetStartedPopUp({style, buttonText}: IProps) {
         phone: '',
     }
     const [isOpen, setIsOpen] = useState(false);
-    const content = "Your request for a price quote has been sent."
+    const content = "Thanks! We’ll be in touch within 24 hours"
     const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
     const [formData, setFormData] = useState(formStruct);
 
