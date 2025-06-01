@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useRef} from "react";
+import ScrollNavButton from "./ScrollNavButton.tsx";
 
 interface Props {
     activePath: string;
@@ -22,10 +23,8 @@ export default function HamburgerMenu({activePath}: Props) {
 
     const links = [
         {path: "/", label: "Home"},
-        {path: "/services", label: "Services"},
-        {path: "/capabilities", label: "Our Capabilities"},
+        {path: "/#services", label: "Services"},
         {path: "/blog", label: "Blog"},
-        {path: "/career", label: "Career"},
         {path: "/contact", label: "Contact"},
     ];
 
@@ -73,32 +72,64 @@ export default function HamburgerMenu({activePath}: Props) {
                             : activePath.startsWith(path);
                         return (
                             <li key={path} className="group">
-                                <a
-                                    href={path}
-                                    className={`flex justify-end gap-4 items-center py-2 hover:pr-5 hover:text-[#3F5D8F] transition-all duration-300 ease-in-out ${
+                                {label == "Services" ?
+                                    <a className={`flex justify-end gap-4 items-center py-2 hover:pr-5 hover:text-[#3F5D8F] transition-all duration-300 ease-in-out ${
                                         isActive ? "text-[#3F5D8F] font-semibold pr-5" : "text-black"
-                                    }`}
-                                >
-                                    {label}
-                                    <svg
-                                        className="w-8 h-8"
-                                        width="40"
-                                        height="40"
-                                        viewBox="0 0 40 40"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            d="M24.7276 31.1057L23.2554 29.6475L31.8719 21.031H4.16672V18.937H31.8879L23.2693 10.3205L24.7276 8.86221L35.8493 19.984L24.7276 31.1057Z"
-                                            className={`transition-colors duration-300 ${
-                                                isActive
-                                                    ? "fill-[#3F5D8F]"
-                                                    : "fill-[#151515] group-hover:fill-[#3F5D8F]"
-                                            }`}
-                                        />
-                                    </svg>
-                                </a>
+                                    }`}>
+                                        <ScrollNavButton
+                                            targetId="services"
+                                            to="/"
+                                            className='cursor-pointer'
+                                        >
+                                            Services
+                                        </ScrollNavButton>
+                                        <svg
+                                            className="w-8 h-8"
+                                            width="40"
+                                            height="40"
+                                            viewBox="0 0 40 40"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                d="M24.7276 31.1057L23.2554 29.6475L31.8719 21.031H4.16672V18.937H31.8879L23.2693 10.3205L24.7276 8.86221L35.8493 19.984L24.7276 31.1057Z"
+                                                className={`transition-colors duration-300 ${
+                                                    isActive
+                                                        ? "fill-[#3F5D8F]"
+                                                        : "fill-[#151515] group-hover:fill-[#3F5D8F]"
+                                                }`}
+                                            />
+                                        </svg>
+                                    </a>
+                                    :
 
+                                    <a
+                                        href={path}
+                                        className={`flex justify-end gap-4 items-center py-2 hover:pr-5 hover:text-[#3F5D8F] transition-all duration-300 ease-in-out ${
+                                            isActive ? "text-[#3F5D8F] font-semibold pr-5" : "text-black"
+                                        }`}
+                                    >
+                                        {label}
+
+                                        <svg
+                                            className="w-8 h-8"
+                                            width="40"
+                                            height="40"
+                                            viewBox="0 0 40 40"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                d="M24.7276 31.1057L23.2554 29.6475L31.8719 21.031H4.16672V18.937H31.8879L23.2693 10.3205L24.7276 8.86221L35.8493 19.984L24.7276 31.1057Z"
+                                                className={`transition-colors duration-300 ${
+                                                    isActive
+                                                        ? "fill-[#3F5D8F]"
+                                                        : "fill-[#151515] group-hover:fill-[#3F5D8F]"
+                                                }`}
+                                            />
+                                        </svg>
+                                    </a>
+                                }
                                 {isActive ? (
                                     <hr className="border-[#3F5D8F] mt-2"/>
                                 ) : (
