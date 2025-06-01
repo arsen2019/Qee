@@ -1,64 +1,46 @@
-import React from 'react';
-import ReactMarkdown from 'react-markdown';
-import rehypeRaw from 'rehype-raw';
-import remarkGfm from 'remark-gfm';
+// src/components/reactComponents/BlogCard.tsx
+import React from "react";
 
-interface BlogPostProps {
+interface BlogCardProps {
+    imageUrl: string;
+    date: string;
     title: string;
-    content: string;
-    img: string | any;
-    number: number;
+    description: string;
+    link: string;
 }
 
-const BlogPost: React.FC<BlogPostProps> = ({ title, content, img, number }) => {
-    const isEven = number % 2 === 0;
-
-    const imageSrc = typeof img === 'string' ? img : img.src;
-
+const BlogCard: React.FC<BlogCardProps> = ({ imageUrl, date, title, description, link }) => {
     return (
-        <section className="mb-16 blog_section">
-            <h2 className="text-2xl font-bold mt-10 mb-15 md:mb-32 justify-center flex">{title}</h2>
-            <article className={`grid grid-cols-1 ${isEven ? 'md:grid-cols-[1fr_2fr]' : 'md:grid-cols-[2fr_1fr]'} gap-10`}>
-                <div className={`blog_content text-[20px] flex items-center flex-1 sm:order-1 ${isEven ? 'md:order-2' : 'md:order-1'}`}>
-                    <div className=" prose-lg max-w-none prose-a:text-blue-600 hover:prose-a:text-blue-800 prose-a:underline">
-                        <ReactMarkdown
-                            children={content}
-                            remarkPlugins={[remarkGfm]}
-                            rehypePlugins={[rehypeRaw]}
-                            components={{
-                                a: ({ node, ...props }) => (
-                                    <a
-                                        {...props}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="text-blue-600 hover:underline"
-                                    />
-                                ),
-                            }}
-                        />
-                    </div>
+        <div
+            className="relative rounded-2xl overflow-hidden group w-full  h-[400px] md:h-[700px] xl:h-[500px] shadow-lg"
+            style={{ backgroundImage: `url(${imageUrl})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+        >
 
-                </div>
-                <div className={`flex-1 order-2 ${isEven ? 'md:order-1' : 'md:order-2'}`}>
-                    <div className="relative inline-block">
-                        <div className="relative">
-                            <div className="absolute w-full h-full bg-[#033271]"
-                                 style={{ transform: 'translate(1rem, -1rem)' }}></div>
-                            <div className="absolute w-full h-full bg-[#033271] "
-                                 style={{ transform: 'translate(-1rem, 1rem)' }}></div>
-                            <div className="relative z-10">
-                                <img
-                                    src={imageSrc}
-                                    alt={title}
-                                    className="  object-cover aspect-square w-full"
-                                />
-                            </div>
-                        </div>
+            <div className="absolute top-10  bg-[#003B71] text-white px-3 py-1  text-sm font-medium z-10">
+                {date}
+            </div>
+            <div
+                className="absolute rounded-2xl bottom-0 left-0 w-full bg-[#003B71] text-white px-10 py-4 transition-all duration-500 ease-in-out
+                   md:h-[35%] h-[45%] group-hover:h-[60%] flex flex-col justify-center "
+            >
+                <div className="card-content flex  justify-center flex-col gap-5">
+                    <div>
+                        <h3 className="md:text-[20px] text-[16px] font-bold">{title}</h3>
+                        <p className="md:text-[16px] text-[14px]">
+                            {description}
+                        </p>
                     </div>
+                    <a
+                        href={link}
+                        className=" text-sm font-semibold underline flex items-center"
+                    >
+                        Read the full article →
+                    </a>
                 </div>
-            </article>
-        </section>
+
+            </div>
+        </div>
     );
 };
 
-export default BlogPost;
+export default BlogCard;
