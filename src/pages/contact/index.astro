@@ -1,6 +1,17 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import GetInTouchForm from "../../components/reactComponents/GetInTouchForm";
 ---
 <BaseLayout>
-
+    <section class="my-10 mx-auto max-w-6xl p-4">
+        <h1 class=" xl:text-4xl lg:text-3xl  text-2xl font-bold mt-4 ">
+            Keep in touch
+        </h1>
+        <p class=" xl:text-xl lg:text-lg  text-base pt-4">Lorem ipsum dolor sit amet, consectetur Lorem ipsum
+            dolor sit amet, consectetur Lorem ipsum dolor sit amet, consectetur Lorem ipsum dolor sit amet, consectetur
+            Lorem ipsum dolor sit amet, consectetur Lorem ipsum dolor sit amet, consectetur Lorem ipsum dolor sit amet,
+            consectetur Lorem ipsum dolor sit amet, consectetur Lorem ipsum dolor sit amet, consectetur Lorem ipsum
+            dolor sit amet, consectetur </p>
+    </section>
+    <GetInTouchForm client:only="react"/>
 </BaseLayout>
