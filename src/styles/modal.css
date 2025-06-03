@@ -48,22 +48,22 @@
 .open-btn {
     background-color: white;
     color: #033271;
-    border: none;
 }
 
 
 .submit-btn {
     background-color: #3F5D8F;
     color: white;
-    border: none;
     width: 100%;
+    border:2px solid transparent;
+    transition: background-color 0.3s ease-in-out;
+
 }
 .modal-wrapper {
     display: flex;
     flex-direction: column;
     background: white;
     padding: 1rem;
-    width: 70%;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 .close-btn-div {
@@ -74,9 +74,13 @@
     display: flex;
     justify-content: start;
 }
-.send_btn button{
-    background-color: #3F5D8F;
-    color: white;
-    border: none;
-    border-radius: 8px;
+
+.submit-btn:hover {
+    background: linear-gradient(white, white) padding-box,
+    linear-gradient(to right, #FFBC7E, #ecd8ae) border-box;
+    border-radius: 4px;
+    border: 2px solid transparent;
+    color: #151515;
+    transition: background 0.5s ease-in-out;
+
 }

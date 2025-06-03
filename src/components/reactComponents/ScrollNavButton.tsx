@@ -33,7 +33,7 @@ export default function ScrollNavButton({ targetId, to, children, className }: P
                 setTimeout(() => {
                     el.scrollIntoView({ behavior: "smooth", block: "start" });
                     sessionStorage.removeItem("scrollTarget");
-                }, 100); 
+                }, 100);
             }
         }
     }, []);

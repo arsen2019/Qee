@@ -113,7 +113,7 @@ export default function ScheduleForm() {
     };
 
     return (
-        <div className="bg-white p-6 rounded-lg md:shadow-lg lg:px-40 px-10 mb-10 mx-auto">
+        <div className="bg-white p-6 rounded-lg lg:px-40 px-10 mb-10 mx-auto md:shadow-[0px_0px_20px_5px] shadow-gray-500">
             <h2 className="text-2xl font-semibold mb-6">Schedule a Free Consultation</h2>
 
             <form onSubmit={handleSubmit}>

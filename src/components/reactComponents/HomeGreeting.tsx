@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import ScrollNavButton from "./ScrollNavButton.tsx";
 
 const BusinessTransformationHero = () => {
     const [month, setMonth] = useState('April');
@@ -113,11 +114,13 @@ const BusinessTransformationHero = () => {
                     </div>
 
                     <div className="bg-[#033271] text-white px-6 py-4 flex flex-col justify-center items-center text-center rounded-lg md:rounded-l-none">
-                        <button className="font-medium text-sm">
-                            Schedule a Free
-                            <br />
-                            Consultation
-                        </button>
+                        <ScrollNavButton
+                            targetId="services"
+                            to="/"
+                            className="cursor-pointer font-medium text-sm"
+                        >
+                            Schedule a Free Consultation
+                        </ScrollNavButton>
                     </div>
                 </div>
             </div>

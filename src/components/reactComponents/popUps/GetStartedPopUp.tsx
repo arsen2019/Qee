@@ -44,7 +44,7 @@ export default function GetStartedPopUp({style, buttonText}: IProps) {
 
             {isOpen && (
                 <div className="modal-overlay">
-                    <div className="modal-wrapper shadow-lg">
+                    <div className="modal-wrapper shadow-lg md:w-[60%] w-[85%]">
                         <div className="close-btn-div">
                             <button className="close-btn" onClick={() => setIsOpen(false)}>
                                 <svg className='w-10 h-10' width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -53,8 +53,9 @@ export default function GetStartedPopUp({style, buttonText}: IProps) {
 
                             </button>
                         </div>
-                        <div className="modal-content">
-                            <form className="modal-form " onSubmit={handleSubmit}>
+                        <div className="modal-content flex justify-start gap-10 flex-col">
+                            <h1 className='text-[#151515] text-[20px] md:text-[24px] lg::text-[36px] font-semibold flex justify-start  '>Request For Price Offer</h1>
+                            <form className="modal-form md:text-[20px] text-[16px]  " onSubmit={handleSubmit}>
                                 <div className=" flex flex-col text-[#787676] gap-5">
                                     <input type="text" onChange={handleChange} required={true}
                                            value={formData['name']} name='name' placeholder="Name"
