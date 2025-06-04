@@ -79,9 +79,9 @@ const BusinessTransformationHero = () => {
 
     return (
         <div className="w-full h-full relative overflow-hidden">
-            <div className="absolute inset-0 bg-[url('/staticImages/HomeGreeting.webp')] bg-center bg-cover"></div>
+            <div className="absolute inset-0 bg-[url('/staticImages/HomeGreeting.svg')]  bg-center bg-cover "></div>
 
-            <div className="absolute inset-0 bg-blue-950 opacity-30"></div>
+            <div className="absolute inset-0 opacity-30"></div>
 
             <div className="relative z-10 p-8 pb-20 md:p-16 text-white">
                 <div className="max-w-2xl mb-16 md:mb-24 text-center lg:text-left">
