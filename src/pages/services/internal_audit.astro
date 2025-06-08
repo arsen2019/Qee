@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import SectionDetail from "../../components/astroComponents/SectionDetail.astro";
-import GetInTouchForm from "../../components/reactComponents/GetInTouchForm";
+import GetStartedPopUp from "../../components/reactComponents/popUps/GetStartedPopUp";
 ---
 <BaseLayout>
     <SectionDetail
@@ -54,7 +54,19 @@ import GetInTouchForm from "../../components/reactComponents/GetInTouchForm";
                         transformation journey.</p>
                 </section>
             </div>
+            <div class="flex w-full  my-20 ">
+                <GetStartedPopUp style={{
+                    background:'#033271',
+                    padding: '10px',
+                    width: '100%',
+                    fontWeight: 'bold',
+                    fontSize: '20px',
+                    color: 'white',
+                }} buttonText="Get Started" client:only="react"/>
+
+
+            </div>
         </div>
+
     </SectionDetail>
-    <GetInTouchForm client:only="react"/>
 </BaseLayout>
