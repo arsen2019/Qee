@@ -1,14 +1,15 @@
 ---
 const {  title, imageUrl,subTitle,href } = Astro.props;
 ---
-<div class="flex flex-col rounded-xl shadow-2xl overflow-hidden">
+<div class="flex flex-col rounded-xl shadow-2xl overflow-hidden " data-aos="fade-up"
+     data-aos-anchor-placement="top-center">
     <div class="">
         <img src={imageUrl} alt={title} class="flex-shrink-0 min-w-full min-h-full h-[200px] object-cover h-stretch sm:w-[240px] sm:h-[300px]">
     </div>
     <div class="flex flex-col justify-center items-center  w-full p-4 pb-8">
         <h3 class="font-semibold text-lg text-center">{title}</h3>
         <p class="text-gray-700 lg:text-lg  text-base py-4 px-2 text-center">{subTitle}</p>
-        <a href={href} class="rounded-md bg-[#033271] text-white p-2 px-6 inline-block ">
+        <a href={href} class="rounded-md bg-[#033271] text-white hover:bg-white hover:text-black p-2 px-6 inline-block  hover:.btn">
             Read More
         </a>
     </div>
