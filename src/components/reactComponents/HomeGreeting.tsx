@@ -24,7 +24,7 @@ const BusinessTransformationHero = () => {
         onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
     }) => {
         return (
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center" >
                 <div className="text-blue-600 text-sm font-medium mb-2">{label}</div>
                 <div className="relative w-full">
                     <select
