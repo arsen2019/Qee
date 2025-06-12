@@ -269,10 +269,6 @@ export default function GetInTouchForm() {
 
                 <div className="mt-6 flex flex-col space-y-2">
                     <div className="flex items-center space-x-2">
-                        <img src="/vectors/bxs_phone%20(1).svg" alt="Phone" className="h-6 w-6 text-gray-700" />
-                        <span className="text-sm text-gray-700">+977 9829230675</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
                         <img src="/vectors/fluent_mail-12-regular%20(1).svg" alt="Email" className="h-6 w-6 text-gray-700" />
                         <span className="text-sm text-gray-700">info@digitalreform.com</span>
                     </div>
