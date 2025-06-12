@@ -3,6 +3,7 @@ import {Image} from 'astro:assets';
 import logo from '../../../public/logos/navbarLogo.svg';
 import HamburgerMenu from '../reactComponents/HamburgerMenu'
 import ScrollNavButton from "../reactComponents/ScrollNavButton";
+import ServiceDropdown from "../reactComponents/ServiceDropdown";
 
 const path = Astro.url.pathname
 
@@ -45,7 +46,7 @@ function isActivePath(currentPath: string, pathPrefix: string) {
                             className="cursor-pointer"
                             client:visible
                     >
-                        Services
+                        <ServiceDropdown client:visible />
                     </ScrollNavButton></li>
                     <li class=`flex ${
                         isActivePath(path, "/blog") ? "underline-text" : ""
