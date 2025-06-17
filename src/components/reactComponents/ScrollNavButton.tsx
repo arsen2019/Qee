@@ -6,9 +6,10 @@ interface Props {
     to: string;
     children: React.ReactNode;
     className?: string;
+    onClick?: () => void;
 }
 
-export default function ScrollNavButton({ targetId, to, children, className }: Props) {
+export default function ScrollNavButton({ targetId, to, children, className,onClick }: Props) {
     const handleClick = () => {
         if (window.location.pathname === to) {
             scrollToTarget();
