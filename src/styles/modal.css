@@ -84,7 +84,7 @@
     transition: background 0.5s ease-in-out;
 
 }
-@tailwind utilities;
+/*@tailwind utilities;*/
 
 @layer utilities {
     @keyframes fadeIn {

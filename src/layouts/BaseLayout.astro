@@ -24,18 +24,8 @@ import '../styles/global.css';
 //
 // const absoluteImageUrl = 'https://leadin.agency/favicon/og-image/og-image.png'
 // console.log(absoluteImageUrl)
-//AOS.init({
-   // duration:1000,
-   // offset:5,
-   // delay:10,
-//});
-//AOS.refresh();
 ---
-<style is:global>
-    body{
-        font-family: 'Manrope', sans-serif;
-    }
-</style>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -101,7 +91,12 @@ import '../styles/global.css';
     <slot/>
 </main>
 <Footer/>
-<script src="../scripts/aos_init.js"></script>
 </body>
 </html>
 
+<style is:global>
+    body{
+        font-family: 'Manrope', sans-serif;
+    }
+</style>
+<script src="/src/scripts/aos-init.js"></script>
