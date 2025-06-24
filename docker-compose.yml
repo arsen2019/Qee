@@ -5,5 +5,19 @@ services:
       dockerfile: Dockerfile
     restart: always
     container_name: frontend
-    ports:
-     - "80:80"
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.frontend.rule=Host(`qee.agency`)"
+      - "traefik.http.routers.frontend.entrypoints=websecure"
+      - "traefik.http.routers.frontend.tls=true"
+      - "traefik.http.routers.frontend.tls.certresolver=myresolver"
+      - "traefik.http.services.frontend.loadbalancer.server.port=80"
+      - "traefik.http.middlewares.frontend-retry.retry.attempts=5"
+      - "traefik.http.middlewares.frontend-retry.retry.initialInterval=100ms"
+      - "traefik.http.routers.frontend.middlewares=frontend-retry"
+
+networks:
+  traefik:
+    external: true
