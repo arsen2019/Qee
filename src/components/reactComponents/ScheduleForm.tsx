@@ -1,6 +1,5 @@
 import {useEffect, useState} from "react";
 import FeedbackPopUp from "./popUps/FeedbackPopUp";
-import DateSelector from "./DateSelector.tsx";
 import FormDateSelector from "./FormDateSelector.tsx";
 import { postData } from '../../utils/utils';
 
@@ -25,14 +24,6 @@ interface ServiceOption {
 }
 
 export default function ScheduleForm() {
-    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    const days = Array.from({ length: 31 }, (_, i) => i + 1);
-    const hours = [
-        "9:00", "9:30", "10:00", "10:30", "11:00", "11:30",
-        "12:00", "12:30", "13:00", "13:30", "14:00", "14:30",
-        "15:00", "15:30", "16:00", "16:30", "17:00"
-    ];
-
     const services: ServiceOption[] = [
         { id: 'consulting', label: 'Consulting' },
         { id: 'development', label: 'Development' },
@@ -132,7 +123,7 @@ export default function ScheduleForm() {
             <h2 className="text-2xl font-semibold mb-6">Schedule a Free Consultation</h2>
 
             <form onSubmit={handleSubmit} id='schedule-form'>
-                <div className="bg-white p-5 rounded-lg shadow-[0px_0px_10px_5px] shadow-gray-200 mb-6">
+                <div className="bg-white py-5 px-2 rounded-lg shadow-[0px_0px_10px_5px] shadow-gray-200 mb-6">
                         <FormDateSelector onDateChange={setSelectedDate}/>
                 </div>
 

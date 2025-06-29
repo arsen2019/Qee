@@ -1,93 +1,112 @@
-// --------------------------
-// FormDateSelector.tsx
-// --------------------------
 import { useEffect, useMemo, useState } from 'react';
-import { Select } from 'antd';
-import dayjs from 'dayjs';
-
-const { Option } = Select;
+import {
+    getInitialDate,
+    getAvailableMonths,
+    getAvailableDays,
+    getAvailableHours,
+    createDateTime,
+    getStoredDate,
+} from '../../utils/dateUtils.ts';
+import {Dropdown} from "../../utils/Dropdown.tsx"
 
 const FormDateSelector = ({ onDateChange }: { onDateChange: (date: string) => void }) => {
-    const now = dayjs();
-    const currentYear = now.year();
-    const months = [
-        'January', 'February', 'March', 'April', 'May', 'June',
-        'July', 'August', 'September', 'October', 'November', 'December',
-    ];
-
-    const getStored = () => {
-        const stored = typeof window !== 'undefined' ? localStorage.getItem('selectedDate') : null;
-        return stored ? dayjs(stored) : now;
+    const getStoredOrInitial = () => {
+        const stored = getStoredDate();
+        return stored ? new Date(stored) : getInitialDate();
     };
 
-    const [parsed, setParsed] = useState(getStored());
-    const [month, setMonth] = useState(parsed.format('MMMM'));
-    const [day, setDay] = useState(parsed.date().toString());
-    const [hour, setHour] = useState(parsed.format('HH:mm'));
+    const initial = getStoredOrInitial();
+    const [selectedDate, setSelectedDate] = useState(initial);
+    const [selectedHour, setSelectedHour] = useState(
+        `${initial.getHours()}:${initial.getMinutes().toString().padStart(2, '0')}`
+    );
 
     useEffect(() => {
         const listener = (e: Event) => {
             const detail = (e as CustomEvent).detail;
-            const updated = dayjs(detail);
-            setParsed(updated);
-            setMonth(updated.format('MMMM'));
-            setDay(updated.date().toString());
-            setHour(updated.format('HH:mm'));
+            const updated = new Date(detail);
+            setSelectedDate(updated);
+            setSelectedHour(`${updated.getHours()}:${updated.getMinutes().toString().padStart(2, '0')}`);
         };
         window.addEventListener('update-schedule-date', listener);
         return () => window.removeEventListener('update-schedule-date', listener);
     }, []);
 
-    const isWeekend = (date: dayjs.Dayjs) => [0, 6].includes(date.day());
+    const availableMonths = useMemo(() => getAvailableMonths(), []);
 
-    const days = useMemo(() => {
-        const monthIndex = months.indexOf(month);
-        const total = dayjs().month(monthIndex).year(currentYear).daysInMonth();
-        const result = [];
-        for (let i = 1; i <= total; i++) {
-            const d = dayjs().year(currentYear).month(monthIndex).date(i);
-            if (d.isBefore(now, 'day')) continue;
-            const disabled = isWeekend(d);
-            result.push({ value: i.toString(), label: i.toString(), disabled });
-        }
-        return result;
-    }, [month]);
+    const availableDays = useMemo(() => getAvailableDays(selectedDate), [selectedDate]);
 
-    const hours = [
-        '9:00', '9:30', '10:00', '10:30', '11:00', '11:30',
-        '12:00', '12:30', '13:00', '13:30', '14:00', '14:30',
-        '15:00', '15:30', '16:00', '16:30', '17:00',
-    ];
+    const availableHours = useMemo(() => getAvailableHours(selectedDate), [selectedDate]);
 
     useEffect(() => {
-        const date = dayjs(`${month} ${day} ${currentYear} ${hour}`, 'MMMM D YYYY HH:mm');
-        onDateChange(date.toISOString());
-    }, [month, day, hour]);
+        try {
+            const finalDateTime = createDateTime(selectedDate, selectedHour);
+            const isoDate = finalDateTime.toISOString();
+            onDateChange(isoDate);
+        } catch (error) {
+            console.error('Error creating ISO date:', error);
+        }
+    }, [selectedDate, selectedHour, onDateChange]);
+
+    const handleMonthChange = (value: string) => {
+        const [year, month] = value.split('-').map(Number);
+        const newDate = new Date(selectedDate);
+        newDate.setFullYear(year, month, 1);
+
+        const daysForNewMonth = getAvailableDays(newDate);
+        const availableBusinessDays = daysForNewMonth.filter(d => !d.disabled);
+        if (availableBusinessDays.length > 0) {
+            newDate.setDate(availableBusinessDays[0].value);
+        }
+
+        setSelectedDate(newDate);
+    };
+
+    const handleDayChange = (day: number) => {
+        const newDate = new Date(selectedDate);
+        newDate.setDate(day);
+        setSelectedDate(newDate);
+    };
+
+    const handleHourChange = (hour: string) => {
+        setSelectedHour(hour);
+    };
+
 
     return (
         <div className="grid grid-cols-3 gap-4 w-full">
-            <div>
-                <div className="text-sm text-center font-medium text-[#033271] mb-1">Month</div>
-                <Select size='large' value={month} onChange={setMonth} className="w-full min-w-[100px]">
-                    {months.map(m => <Option key={m} value={m}>{m}</Option>)}
-                </Select>
-            </div>
-            <div>
-                <div className="text-sm text-center font-medium text-[#033271] mb-1">Day</div>
-                <Select size='large' value={day} onChange={setDay} className="w-full min-w-[100px]">
-                    {days.map(({ value, label, disabled }) => (
-                        <Option key={value} value={value} disabled={disabled} className={disabled ? 'text-gray-400' : ''}>
-                            {label}
-                        </Option>
-                    ))}
-                </Select>
-            </div>
-            <div>
-                <div className="text-sm text-center font-medium text-[#033271] mb-1">Hour</div>
-                <Select size='large' value={hour} onChange={setHour} className="w-full min-w-[100px]">
-                    {hours.map(h => <Option key={h} value={h}>{h}</Option>)}
-                </Select>
-            </div>
+            <Dropdown
+                label="Month"
+                value={`${selectedDate.getFullYear()}-${selectedDate.getMonth()}`}
+                options={availableMonths.map(m => ({
+                    label: m.year === new Date().getFullYear() ? m.label : `${m.label} ${m.year}`,
+                    shortLabel: m.year === new Date().getFullYear() ? m.shortLabel : `${m.shortLabel} ${m.year}`,
+                    value: m.value
+                }))}
+                onChange={handleMonthChange}
+                useShortLabel={typeof window !== 'undefined' && window.innerWidth < 768}
+            />
+
+            <Dropdown
+                label="Day"
+                value={selectedDate.getDate().toString()}
+                options={availableDays.map(d => ({
+                    label: d.label,
+                    value: d.value,
+                    disabled: d.disabled
+                }))}
+                onChange={handleDayChange}
+            />
+
+            <Dropdown
+                label="Hour"
+                value={selectedHour}
+                options={availableHours.map(h => ({
+                    label: h,
+                    value: h
+                }))}
+                onChange={handleHourChange}
+            />
         </div>
     );
 };
