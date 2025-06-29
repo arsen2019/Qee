@@ -4,14 +4,12 @@ import FormDateSelector from "./FormDateSelector.tsx";
 import { postData } from '../../utils/utils';
 
 interface FormData {
-    month: string;
-    day: number;
-    hour: string;
+    date: string;
     name: string;
     email: string;
     company: string;
     industry: string;
-    position: string;
+    phone: string;
     services: string[];
     otherService: string;
     message: string;
@@ -32,21 +30,18 @@ export default function ScheduleForm() {
     ];
 
     const [formData, setFormData] = useState<FormData>({
-        month: "April",
-        day: 15,
-        hour: "12:30",
+        date: "",
         name: "",
         email: "",
         company: "",
         industry: "",
-        position: "",
+        phone: "",
         services: [],
         otherService: "",
         message: "",
         contactMethod: ""
     });
     const [selectedDate, setSelectedDate] = useState<string>()
-
 
     useEffect(() => {
         const handler = (e: Event) => {
@@ -81,17 +76,51 @@ export default function ScheduleForm() {
         setFormData({ ...formData, services: updatedServices });
     };
 
+    const formatDateForSubmission = (dateString: string): string => {
+        if (!dateString) return "";
+
+        try {
+            const date = new Date(dateString);
+
+            const day = date.getDate().toString().padStart(2, '0');
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const year = date.getFullYear();
+
+            let hours = date.getHours();
+            const minutes = date.getMinutes().toString().padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12;
+            const formattedHours = hours.toString().padStart(2, '0');
+
+            return `${day}/${month}/${year} ${formattedHours}:${minutes} ${ampm}`;
+        } catch (error) {
+            console.error('Date formatting error:', error);
+            return dateString;
+        }
+    };
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        localStorage.removeItem('selectedDate')
-        // Prepare data for submission
-        const submissionData = { ...formData };
+
+        const submissionData = {
+            ...formData,
+            date: formatDateForSubmission(selectedDate || formData.date),
+            services: "" // Will be set below
+        };
+
+        // Convert services array to string
+        let servicesArray = [...formData.services];
+
         if (formData.services.includes('other') && formData.otherService) {
-            submissionData.services = formData.services.filter(s => s !== 'other');
-            submissionData.services.push(formData.otherService);
+            servicesArray = servicesArray.filter(s => s !== 'other');
+            servicesArray.push(formData.otherService);
         }
 
-        postData('/schedule-consultation', submissionData);
+        submissionData.services = servicesArray.join(", ");
+
+        console.log(submissionData);
+        postData('/schedule', submissionData);
         setIsFeedbackOpen(true);
         setTimeout(() => setIsFeedbackOpen(false), 2000);
     };
@@ -124,7 +153,7 @@ export default function ScheduleForm() {
 
             <form onSubmit={handleSubmit} id='schedule-form'>
                 <div className="bg-white py-5 px-2 rounded-lg shadow-[0px_0px_10px_5px] shadow-gray-200 mb-6">
-                        <FormDateSelector onDateChange={setSelectedDate}/>
+                    <FormDateSelector onDateChange={setSelectedDate}/>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
@@ -157,6 +186,7 @@ export default function ScheduleForm() {
                             placeholder="Company"
                             value={formData.company}
                             onChange={handleChange}
+                            required
                             className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-500"
                         />
                     </div>
@@ -172,10 +202,10 @@ export default function ScheduleForm() {
                     </div>
                     <div>
                         <input
-                            type="text"
-                            name="position"
-                            placeholder="Position"
-                            value={formData.position}
+                            type="tel"
+                            name="phone"
+                            placeholder="Phone"
+                            value={formData.phone}
                             onChange={handleChange}
                             className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-500"
                         />
