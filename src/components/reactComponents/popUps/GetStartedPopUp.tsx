@@ -45,7 +45,7 @@ export default function GetStartedPopUp({ style, buttonText }: IProps) {
 
             {isOpen && createPortal(
                 <div className="modal-overlay fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-[999]">
-                    <div className="modal-wrapper bg-white w-[95%] md:w-[60%] px-3 py-6 transition-all duration-300 transform scale-100 opacity-100 animate-fadeIn">
+                    <div className="modal-wrapper bg-white w-[95%] max-w-[800px] md:w-[60%] px-3 py-6 transition-all duration-300 transform scale-100 opacity-100 animate-fadeIn">
                         <div className="close-btn-div">
                             <button className="close-btn" onClick={() => setIsOpen(false)}>
                                 <svg className='w-10 h-10' width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">

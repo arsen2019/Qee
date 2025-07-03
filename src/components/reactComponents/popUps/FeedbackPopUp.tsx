@@ -12,7 +12,7 @@ export default function FeedbackPopUp({content, onClose}: FeedbackPopUpProps) {
     return (
 
         createPortal(<div className="modal-overlay">
-            <div className="modal-wrapper w-[85%] transition-all duration-300 transform scale-100 opacity-100 animate-fadeIn">
+            <div className="modal-wrapper w-[85%] max-w-[800px] transition-all duration-300 transform scale-100 opacity-100 animate-fadeIn">
                 <div className="close-btn-div">
                     <button className="close-btn" onClick={onClose}>
                         <svg className='w-10 h-10' width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
