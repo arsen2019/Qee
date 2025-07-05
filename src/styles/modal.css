@@ -75,7 +75,7 @@
     justify-content: start;
 }
 
-.submit-btn:hover {
+.submit-btn:hover{
     background: linear-gradient(white, white) padding-box,
     linear-gradient(to right, #FFBC7E, #ecd8ae) border-box;
     border-radius: 4px;
@@ -84,8 +84,6 @@
     transition: background 0.5s ease-in-out;
 
 }
-/*@tailwind utilities;*/
-
 @layer utilities {
     @keyframes fadeIn {
         0% {

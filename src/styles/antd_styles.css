@@ -1,0 +1,20 @@
+.services-dropdown .custom-select .ant-select-selector {
+    border-radius: 6px;
+    border: 1px solid #d1d5db;
+    padding: 8px 12px;
+    min-height: 42px;
+}
+
+.services-dropdown .custom-select .ant-select-selector:hover {
+    border-color: #3b82f6;
+}
+
+.services-dropdown .custom-select.ant-select-focused .ant-select-selector {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.services-dropdown .custom-select .ant-select-selection-placeholder {
+    color: #6b7280;
+    line-height: 1.5;
+}

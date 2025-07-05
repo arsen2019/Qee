@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import FeedbackPopUp from "./popUps/FeedbackPopUp";
 import FormDateSelector from "./FormDateSelector.tsx";
+import ServicesDropdown from "./helperComponents/ServicesDropdown.tsx";
 import { postData } from '../../utils/utils';
 
 interface FormData {
@@ -16,19 +17,19 @@ interface FormData {
     contactMethod: "whatsapp" | "email" | "";
 }
 
-interface ServiceOption {
-    id: string;
-    label: string;
+interface SubmissionData {
+    date: string;
+    name: string;
+    email: string;
+    company: string;
+    industry: string | null;
+    phone: string | null;
+    services: string;
+    message: string | null;
+    contactMethod: "whatsapp" | "email" | null;
 }
 
 export default function ScheduleForm() {
-    const services: ServiceOption[] = [
-        { id: 'consulting', label: 'Consulting' },
-        { id: 'development', label: 'Development' },
-        { id: 'design', label: 'Design' },
-        { id: 'marketing', label: 'Marketing' },
-    ];
-
     const [formData, setFormData] = useState<FormData>({
         date: "",
         name: "",
@@ -55,7 +56,6 @@ export default function ScheduleForm() {
     }, []);
 
     const [isFeedbackOpen, setIsFeedbackOpen] = useState<boolean>(false);
-    const [isServicesOpen, setIsServicesOpen] = useState<boolean>(false);
     const feedbackContent = "Thanks for scheduling a consultation. We will confirm your appointment shortly.";
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -63,17 +63,12 @@ export default function ScheduleForm() {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleServiceChange = (serviceId: string) => {
-        const updatedServices = [...formData.services];
+    const handleServicesChange = (services: string[]) => {
+        setFormData({ ...formData, services });
+    };
 
-        if (updatedServices.includes(serviceId)) {
-            const index = updatedServices.indexOf(serviceId);
-            updatedServices.splice(index, 1);
-        } else {
-            updatedServices.push(serviceId);
-        }
-
-        setFormData({ ...formData, services: updatedServices });
+    const handleOtherServiceChange = (value: string) => {
+        setFormData({ ...formData, otherService: value });
     };
 
     const formatDateForSubmission = (dateString: string): string => {
@@ -100,24 +95,35 @@ export default function ScheduleForm() {
         }
     };
 
+    const validateAndCleanString = (value: string): string | null => {
+        if (!value || value.trim() === '') {
+            return null;
+        }
+        return value.trim();
+    };
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-
-        const submissionData = {
-            ...formData,
-            date: formatDateForSubmission(selectedDate || formData.date),
-            services: "" // Will be set below
-        };
 
         // Convert services array to string
         let servicesArray = [...formData.services];
 
         if (formData.services.includes('other') && formData.otherService) {
             servicesArray = servicesArray.filter(s => s !== 'other');
-            servicesArray.push(formData.otherService);
+            servicesArray.push(formData.otherService.trim());
         }
 
-        submissionData.services = servicesArray.join(", ");
+        const submissionData: SubmissionData = {
+            date: formatDateForSubmission(selectedDate || formData.date),
+            name: formData.name.trim(),
+            email: formData.email.trim(),
+            company: formData.company.trim(),
+            industry: validateAndCleanString(formData.industry),
+            phone: validateAndCleanString(formData.phone),
+            services: servicesArray.join(", "),
+            message: validateAndCleanString(formData.message),
+            contactMethod: formData.contactMethod || null
+        };
 
         console.log(submissionData);
         postData('/schedule', submissionData);
@@ -129,24 +135,6 @@ export default function ScheduleForm() {
         setFormData({ ...formData, contactMethod: method });
     };
 
-    const displaySelectedServices = () => {
-        if (formData.services.length === 0) return "Service";
-
-        const selectedServiceLabels = formData.services
-            .filter(id => id !== 'other')
-            .map(id => services.find(s => s.id === id)?.label || id);
-
-        if (formData.services.includes('other')) {
-            if (formData.otherService && formData.otherService.trim() !== '') {
-                selectedServiceLabels.push(formData.otherService);
-            } else {
-                selectedServiceLabels.push('Other');
-            }
-        }
-
-        return selectedServiceLabels.join(', ');
-    };
-
     return (
         <div className="bg-white p-6 rounded-lg lg:px-40 px-2 mb-10 mx-auto md:shadow-[0px_0px_20px_5px] shadow-gray-500">
             <h2 className="text-2xl font-semibold mb-6">Schedule a Free Consultation</h2>
@@ -156,8 +144,8 @@ export default function ScheduleForm() {
                     <FormDateSelector onDateChange={setSelectedDate}/>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-                    <div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 text-[14px] md:text-[16px] gap-4 mb-4">
+                    <div className="">
                         <input
                             type="text"
                             name="name"
@@ -165,7 +153,7 @@ export default function ScheduleForm() {
                             value={formData.name}
                             onChange={handleChange}
                             required
-                            className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-500"
+                            className="w-full  p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-500"
                         />
                     </div>
                     <div>
@@ -210,69 +198,14 @@ export default function ScheduleForm() {
                             className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-500"
                         />
                     </div>
-                    <div className="relative">
-                        <button
-                            type="button"
-                            onClick={() => setIsServicesOpen(!isServicesOpen)}
-                            className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent text-left flex justify-between items-center"
-                        >
-                            <span className={formData.services.length === 0 ? "text-gray-500" : ""}>
-                                {displaySelectedServices()}
-                            </span>
-                            <img src="/vectors/arrowDown.svg" alt="Dropdown" className="h-4 w-4" />
-                        </button>
-
-                        {isServicesOpen && (
-                            <div className="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded shadow-lg max-h-48 overflow-y-auto">
-                                {services.map((service) => (
-                                    <div
-                                        key={service.id}
-                                        className="flex items-center px-3 py-2 hover:bg-gray-100 cursor-pointer"
-                                        onClick={() => handleServiceChange(service.id)}
-                                    >
-                                        <input
-                                            type="checkbox"
-                                            id={`service-${service.id}`}
-                                            checked={formData.services.includes(service.id)}
-                                            onChange={() => {}}
-                                            className="mr-2"
-                                        />
-                                        <label htmlFor={`service-${service.id}`} className="text-gray-700 cursor-pointer">
-                                            {service.label}
-                                        </label>
-                                    </div>
-                                ))}
-                                <div
-                                    className="flex items-center px-3 py-2 hover:bg-gray-100 cursor-pointer"
-                                    onClick={() => handleServiceChange('other')}
-                                >
-                                    <input
-                                        type="checkbox"
-                                        id="service-other"
-                                        checked={formData.services.includes('other')}
-                                        onChange={() => {}}
-                                        className="mr-2"
-                                    />
-                                    <label htmlFor="service-other" className="text-gray-700 cursor-pointer">
-                                        Other
-                                    </label>
-                                </div>
-
-                                {formData.services.includes('other') && (
-                                    <div className="px-3 py-2 border-t border-gray-200">
-                                        <input
-                                            type="text"
-                                            name="otherService"
-                                            placeholder="Please specify"
-                                            value={formData.otherService}
-                                            onChange={handleChange}
-                                            onClick={(e) => e.stopPropagation()}
-                                            className="w-full p-1 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                        />
-                                    </div>
-                                )}
-                            </div>
-                        )}
+                    <div>
+                        <ServicesDropdown
+                            selectedServices={formData.services}
+                            onServicesChange={handleServicesChange}
+                            otherService={formData.otherService}
+                            onOtherServiceChange={handleOtherServiceChange}
+                            placeholder="Services"
+                        />
                     </div>
                 </div>
 
