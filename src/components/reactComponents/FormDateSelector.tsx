@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState,useRef } from 'react';
 import {
     getInitialDate,
     getAvailableMonths,
@@ -21,6 +21,8 @@ const FormDateSelector = ({ onDateChange }: { onDateChange: (date: string) => vo
         `${initial.getHours()}:${initial.getMinutes().toString().padStart(2, '0')}`
     );
 
+    const previousDateRef = useRef<string | null>(null); // ✅
+
     useEffect(() => {
         const listener = (e: Event) => {
             const detail = (e as CustomEvent).detail;
@@ -42,7 +44,11 @@ const FormDateSelector = ({ onDateChange }: { onDateChange: (date: string) => vo
         try {
             const finalDateTime = createDateTime(selectedDate, selectedHour);
             const isoDate = finalDateTime.toISOString();
-            onDateChange(isoDate);
+
+            if (previousDateRef.current !== isoDate) {
+                previousDateRef.current = isoDate;
+                onDateChange(isoDate);
+            }
         } catch (error) {
             console.error('Error creating ISO date:', error);
         }
