@@ -5,7 +5,7 @@ import {
     getAvailableDays,
     getAvailableHours,
     createDateTime,
-    getStoredDate,
+    getStoredDate, DEFAULT_TIMEZONE, getTimeDifferenceFromYerevan,
 } from '../../utils/dateUtils.ts';
 import {Dropdown} from "../../utils/Dropdown.tsx"
 
@@ -77,43 +77,58 @@ const FormDateSelector = ({ onDateChange }: { onDateChange: (date: string) => vo
     const handleHourChange = (hour: string) => {
         setSelectedHour(hour);
     };
+    const { localOffset, yerevanOffset, diffHours } = getTimeDifferenceFromYerevan();
 
+    const showBanner = localOffset !== yerevanOffset;
 
     return (
-        <div className="grid grid-cols-3 gap-4 w-full">
-            <Dropdown
-                label="Month"
-                value={`${selectedDate.getFullYear()}-${selectedDate.getMonth()}`}
-                options={availableMonths.map(m => ({
-                    label: m.year === new Date().getFullYear() ? m.label : `${m.label} ${m.year}`,
-                    shortLabel: m.year === new Date().getFullYear() ? m.shortLabel : `${m.shortLabel} ${m.year}`,
-                    value: m.value
-                }))}
-                onChange={handleMonthChange}
-                useShortLabel={typeof window !== 'undefined' && window.innerWidth < 768}
-            />
+        <>
+            {showBanner && (
+                <div className="bg-yellow-100 border-l-4 border-yellow-400 text-center p-3 mb-1 rounded-[8px] text-sm text-yellow-800">
+                    All times are shown in <strong>{DEFAULT_TIMEZONE} (UTC{yerevanOffset >= 0 ? `+${yerevanOffset}` : yerevanOffset})</strong>.
+                    You’re in UTC{localOffset >= 0 ? `+${localOffset}` : localOffset}, which is{' '}
+                    <strong>
+                        {diffHours > 0
+                            ? `${diffHours} hour${diffHours !== 1 ? 's' : ''} ahead`
+                            : `${-diffHours} hour${diffHours !== -1 ? 's' : ''} behind`}
+                    </strong>.
+                </div>
+            )}
+            <div className="grid grid-cols-3 gap-4 w-full">
+                <Dropdown
+                    label="Month"
+                    value={`${selectedDate.getFullYear()}-${selectedDate.getMonth()}`}
+                    options={availableMonths.map(m => ({
+                        label: m.year === new Date().getFullYear() ? m.label : `${m.label} ${m.year}`,
+                        shortLabel: m.year === new Date().getFullYear() ? m.shortLabel : `${m.shortLabel} ${m.year}`,
+                        value: m.value
+                    }))}
+                    onChange={handleMonthChange}
+                    useShortLabel={typeof window !== 'undefined' && window.innerWidth < 768}
+                />
 
-            <Dropdown
-                label="Day"
-                value={selectedDate.getDate().toString()}
-                options={availableDays.map(d => ({
-                    label: d.label,
-                    value: d.value,
-                    disabled: d.disabled
-                }))}
-                onChange={handleDayChange}
-            />
+                <Dropdown
+                    label="Day"
+                    value={selectedDate.getDate().toString()}
+                    options={availableDays.map(d => ({
+                        label: d.label,
+                        value: d.value,
+                        disabled: d.disabled
+                    }))}
+                    onChange={handleDayChange}
+                />
 
-            <Dropdown
-                label="Hour"
-                value={selectedHour}
-                options={availableHours.map(h => ({
-                    label: h,
-                    value: h
-                }))}
-                onChange={handleHourChange}
-            />
-        </div>
+                <Dropdown
+                    label="Hour"
+                    value={selectedHour}
+                    options={availableHours.map(h => ({
+                        label: h,
+                        value: h
+                    }))}
+                    onChange={handleHourChange}
+                />
+            </div>
+        </>
     );
 };
 
