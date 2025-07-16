@@ -1,7 +1,31 @@
 export const CUTOFF_HOUR = 22;
 export const START_HOUR = 9;
-export const END_HOUR = 22;
+export const END_HOUR = 23;
 export const STEP_MINUTES = 30;
+
+export const DEFAULT_TIMEZONE = 'Europe/London';
+
+/**
+ * Returns the difference in hours between the user's local TZ and Asia/Yerevan.
+ */
+export function getTimeDifferenceFromYerevan(): { localOffset: number; yerevanOffset: number; diffHours: number } {
+    const localMin = new Date().getTimezoneOffset();
+    const yerevanStr = new Date().toLocaleString('en-US', {
+        timeZone: DEFAULT_TIMEZONE,
+        timeZoneName: 'short',
+        hour12: false
+    });
+    const m = yerevanStr.match(/GMT([+-]\d+)/);
+    const yerevanHour = m ? parseInt(m[1], 10) : 4;
+    const yerevanMin = -yerevanHour * 60;
+
+    const diffMin = localMin - yerevanMin;
+    return {
+        localOffset: -localMin / 60,
+        yerevanOffset: yerevanHour,
+        diffHours: diffMin / 60
+    };
+}
 
 export const MONTHS = [
     {full: 'January', short: 'Jan'},
@@ -128,7 +152,7 @@ export const getAvailableHours = (selectedDate: Date): string[] => {
     const isToday = selectedDate.toDateString() === now.toDateString();
     const hours = generateHoursArray();
 
-    if (isToday && now.getHours() < CUTOFF_HOUR - 1) {
+    if (isToday && now.getHours() < CUTOFF_HOUR) {
         const currentMinutes = now.getHours() * 60 + now.getMinutes();
         const cutoffMinutes = currentMinutes + 60;
 

@@ -3,6 +3,7 @@ import FeedbackPopUp from "./popUps/FeedbackPopUp";
 import FormDateSelector from "./FormDateSelector.tsx";
 import ServicesDropdown from "./helperComponents/ServicesDropdown.tsx";
 import { postData } from '../../utils/utils';
+import {formatDateForSubmission} from '../../utils/serviceUtils.ts'
 
 interface FormData {
     date: string;
@@ -71,29 +72,6 @@ export default function ScheduleForm() {
         setFormData({ ...formData, otherService: value });
     };
 
-    const formatDateForSubmission = (dateString: string): string => {
-        if (!dateString) return "";
-
-        try {
-            const date = new Date(dateString);
-
-            const day = date.getDate().toString().padStart(2, '0');
-            const month = (date.getMonth() + 1).toString().padStart(2, '0');
-            const year = date.getFullYear();
-
-            let hours = date.getHours();
-            const minutes = date.getMinutes().toString().padStart(2, '0');
-            const ampm = hours >= 12 ? 'PM' : 'AM';
-            hours = hours % 12;
-            hours = hours ? hours : 12;
-            const formattedHours = hours.toString().padStart(2, '0');
-
-            return `${day}/${month}/${year} ${formattedHours}:${minutes} ${ampm}`;
-        } catch (error) {
-            console.error('Date formatting error:', error);
-            return dateString;
-        }
-    };
 
     const validateAndCleanString = (value: string): string | null => {
         if (!value || value.trim() === '') {
@@ -105,7 +83,6 @@ export default function ScheduleForm() {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        // Convert services array to string
         let servicesArray = [...formData.services];
 
         if (formData.services.includes('other') && formData.otherService) {

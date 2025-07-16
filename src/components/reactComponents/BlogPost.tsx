@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import '../../styles/global.css';
+import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
+import remarkGfm from 'remark-gfm';
 
 interface BlogPostProps {
     imageUrl: string;
@@ -59,7 +62,23 @@ const BlogPost: React.FC<BlogPostProps> = ({
                 >
                     <div className="transition-all duration-500 ease-in-out">
                         <h3 className="md:text-[20px] text-[16px] font-bold">{title}</h3>
-                        <p className="md:text-[16px] text-[14px]">{intro}</p>
+                        <div className=" prose-lg max-w-none prose-a:text-blue-600 hover:prose-a:text-blue-800 prose-a:underline">
+                            <ReactMarkdown
+                                children={intro}
+                                remarkPlugins={[remarkGfm]}
+                                rehypePlugins={[rehypeRaw]}
+                                components={{
+                                    a: ({ node, ...props }) => (
+                                        <a
+                                            {...props}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-blue-600 hover:underline"
+                                        />
+                                    ),
+                                }}
+                            />
+                        </div>
                     </div>
 
                     <button
@@ -76,7 +95,29 @@ const BlogPost: React.FC<BlogPostProps> = ({
                         className={`overflow-hidden mt-4 text-sm transition-all duration-500 ease-in-out custom-scrollbar
                         ${isExpanded ? 'opacity-100 max-h-[400px] md:max-h-[500px] overflow-y-auto' : 'opacity-0 max-h-0'}`}
                     >
-                        <p className="leading-relaxed">{description}</p>
+                        <div className="prose prose-lg max-w-none prose-a:text-blue-600 hover:prose-a:text-blue-800 prose-a:underline">
+                            <ReactMarkdown
+                                remarkPlugins={[remarkGfm]}
+                                rehypePlugins={[rehypeRaw]}
+                                components={{
+                                    a: ({ node, ...props }) => (
+                                        <a
+                                            {...props}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-blue-600 hover:underline"
+                                        />
+                                    ),
+                                    blockquote: ({ node, ...props }) => (
+                                        <blockquote className="border-l-4 pl-4 italic text-gray-400" {...props} />
+                                    ),
+                                    ul: ({ node, ...props }) => <ul className="list-disc pl-5" {...props} />,
+                                    ol: ({ node, ...props }) => <ol className="list-decimal pl-5" {...props} />,
+                                }}
+                            >
+                                {description}
+                            </ReactMarkdown>
+                        </div>
                     </div>
                 </div>
             </div>

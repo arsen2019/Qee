@@ -6,7 +6,10 @@ import {
     getAvailableDays,
     getAvailableHours,
     createDateTime,
-    saveToLocalStorage
+    saveToLocalStorage,
+    getTimeDifferenceFromYerevan,
+    DEFAULT_TIMEZONE,
+
 } from '../../utils/dateUtils.ts';
 
 import {Dropdown} from "../../utils/Dropdown.tsx"
@@ -74,63 +77,79 @@ const DateSelector: React.FC<Props> = ({ onDateChange, initialDate }) => {
         setSelectedDate(newDate);
     };
 
+    const { localOffset, yerevanOffset, diffHours } = getTimeDifferenceFromYerevan();
 
+    const showBanner = localOffset !== yerevanOffset;
 
     return (
-        <div className="w-full flex flex-col gap-5 md:gap-0 md:flex-row justify-between  rounded-lg md:shadow-[0px_0px_20px_5px] shadow-gray-800 ">
-            <div className="grid grid-cols-3 gap-3 py-4 bg-white rounded-lg md:rounded-l-lg md:rounded-r-none w-full md:flex-grow shadow-[0px_0px_15px_4px] shadow-gray-500 md:shadow-none">
-                <Dropdown
-                    label="Month"
-                    value={`${selectedDate.getFullYear()}-${selectedDate.getMonth()}`}
-                    options={availableMonths.map(m => ({
-                        label: m.year === new Date().getFullYear() ? m.label : `${m.label} ${m.year}`,
-                        shortLabel: m.year === new Date().getFullYear() ? m.shortLabel : `${m.shortLabel} ${m.year}`,
-                        value: m.value
-                    }))}
-                    onChange={handleMonthChange}
-                    useShortLabel={typeof window !== 'undefined' && window.innerWidth < 768}
-                />
 
-                <Dropdown
-                    label="Day"
-                    value={selectedDate.getDate().toString()}
-                    options={availableDays.map(d => ({
-                        label: d.label,
-                        value: d.value,
-                        disabled: d.disabled
-                    }))}
-                    onChange={handleDayChange}
-                />
+        <>
+            {showBanner && (
+                <div className="bg-yellow-100 border-l-4 border-yellow-400 p-3 mb-1 rounded-[8px] text-sm text-yellow-800">
+                    All times are shown in <strong>{DEFAULT_TIMEZONE} (UTC{yerevanOffset >= 0 ? `+${yerevanOffset}` : yerevanOffset})</strong>.
+                    You’re in UTC{localOffset >= 0 ? `+${localOffset}` : localOffset}, which is{' '}
+                    <strong>
+                        {diffHours > 0
+                            ? `${diffHours} hour${diffHours !== 1 ? 's' : ''} ahead`
+                            : `${-diffHours} hour${diffHours !== -1 ? 's' : ''} behind`}
+                    </strong>.
+                </div>
+            )}
+            <div className="w-full flex flex-col gap-5 md:gap-0 md:flex-row justify-between  rounded-lg md:shadow-[0px_0px_20px_5px] shadow-gray-800 ">
+                <div className="grid grid-cols-3 gap-3 py-4 bg-white rounded-lg md:rounded-l-lg md:rounded-r-none w-full md:flex-grow shadow-[0px_0px_15px_4px] shadow-gray-500 md:shadow-none">
+                    <Dropdown
+                        label="Month"
+                        value={`${selectedDate.getFullYear()}-${selectedDate.getMonth()}`}
+                        options={availableMonths.map(m => ({
+                            label: m.year === new Date().getFullYear() ? m.label : `${m.label} ${m.year}`,
+                            shortLabel: m.year === new Date().getFullYear() ? m.shortLabel : `${m.shortLabel} ${m.year}`,
+                            value: m.value
+                        }))}
+                        onChange={handleMonthChange}
+                        useShortLabel={typeof window !== 'undefined' && window.innerWidth < 768}
+                    />
 
-                <Dropdown
-                    label="Hour"
-                    value={selectedHour}
-                    options={availableHours.map(h => ({
-                        label: h,
-                        value: h
-                    }))}
-                    onChange={setSelectedHour}
-                />
+                    <Dropdown
+                        label="Day"
+                        value={selectedDate.getDate().toString()}
+                        options={availableDays.map(d => ({
+                            label: d.label,
+                            value: d.value,
+                            disabled: d.disabled
+                        }))}
+                        onChange={handleDayChange}
+                    />
+
+                    <Dropdown
+                        label="Hour"
+                        value={selectedHour}
+                        options={availableHours.map(h => ({
+                            label: h,
+                            value: h
+                        }))}
+                        onChange={setSelectedHour}
+                    />
+                </div>
+
+                <div className="schedule_btn flex items-stretch">
+                    <ScrollNavButton
+                        targetId="consultation"
+                        to="/"
+                        className="bg-[#033271] text-white px-4 w-full h-full py-4 rounded-lg md:rounded-r-lg md:rounded-l-none font-medium text-sm hover:bg-[#002954] transition"
+                        onClick={() => {
+                            try {
+                                const isoDate = finalDateTime.toISOString();
+                                saveToLocalStorage(isoDate);
+                            } catch (error) {
+                                console.error('Error in button click handler:', error);
+                            }
+                        }}
+                    >
+                        Schedule a Free Consultation
+                    </ScrollNavButton>
+                </div>
             </div>
-
-            <div className="schedule_btn flex items-stretch">
-                <ScrollNavButton
-                    targetId="consultation"
-                    to="/"
-                    className="bg-[#033271] text-white px-4 w-full h-full py-4 rounded-lg md:rounded-r-lg md:rounded-l-none font-medium text-sm hover:bg-[#002954] transition"
-                    onClick={() => {
-                        try {
-                            const isoDate = finalDateTime.toISOString();
-                            saveToLocalStorage(isoDate);
-                        } catch (error) {
-                            console.error('Error in button click handler:', error);
-                        }
-                    }}
-                >
-                    Schedule a Free Consultation
-                </ScrollNavButton>
-            </div>
-        </div>
+        </>
     );
 };
 
