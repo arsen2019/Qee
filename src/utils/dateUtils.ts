@@ -1,9 +1,9 @@
-export const CUTOFF_HOUR = 22;
+export const CUTOFF_HOUR = 23;
 export const START_HOUR = 9;
 export const END_HOUR = 23;
 export const STEP_MINUTES = 30;
 
-export const DEFAULT_TIMEZONE = 'Europe/London';
+export const DEFAULT_TIMEZONE = 'Asia/Yerevan';
 
 /**
  * Returns the difference in hours between the user's local TZ and Asia/Yerevan.
@@ -15,7 +15,7 @@ export function getTimeDifferenceFromYerevan(): { localOffset: number; yerevanOf
         timeZoneName: 'short',
         hour12: false
     });
-    const m = yerevanStr.match(/GMT([+-]\d+)/);
+    const m = yerevanStr.match(/GMT([+-]?\d+)/);
     const yerevanHour = m ? parseInt(m[1], 10) : 4;
     const yerevanMin = -yerevanHour * 60;
 
@@ -28,18 +28,18 @@ export function getTimeDifferenceFromYerevan(): { localOffset: number; yerevanOf
 }
 
 export const MONTHS = [
-    {full: 'January', short: 'Jan'},
-    {full: 'February', short: 'Feb'},
-    {full: 'March', short: 'Mar'},
-    {full: 'April', short: 'Apr'},
-    {full: 'May', short: 'May'},
-    {full: 'June', short: 'Jun'},
-    {full: 'July', short: 'Jul'},
-    {full: 'August', short: 'Aug'},
-    {full: 'September', short: 'Sep'},
-    {full: 'October', short: 'Oct'},
-    {full: 'November', short: 'Nov'},
-    {full: 'December', short: 'Dec'}
+    { full: 'January', short: 'Jan' },
+    { full: 'February', short: 'Feb' },
+    { full: 'March', short: 'Mar' },
+    { full: 'April', short: 'Apr' },
+    { full: 'May', short: 'May' },
+    { full: 'June', short: 'Jun' },
+    { full: 'July', short: 'Jul' },
+    { full: 'August', short: 'Aug' },
+    { full: 'September', short: 'Sep' },
+    { full: 'October', short: 'Oct' },
+    { full: 'November', short: 'Nov' },
+    { full: 'December', short: 'Dec' }
 ];
 
 export const isWeekend = (date: Date): boolean => [0, 6].includes(date.getDay());
@@ -72,7 +72,9 @@ export const getInitialDate = (initialDate?: string): Date => {
         if (!isNaN(parsed.getTime())) return parsed;
     }
 
-    if (now.getHours() >= CUTOFF_HOUR || isWeekend(now)) {
+    const yerevanHour = getYerevanHour(new Date());
+
+    if (yerevanHour >= CUTOFF_HOUR - 1  || isWeekend(now)) {
         return getNextBusinessDay(now);
     }
 
@@ -129,18 +131,13 @@ export const getAvailableDays = (selectedDate: Date) => {
 
     for (let day = 1; day <= daysInMonth; day++) {
         const date = new Date(year, month, day);
-
-        if (date < new Date(now.getFullYear(), now.getMonth(), now.getDate())) {
-            continue;
-        }
-
-        const weekend = isWeekend(date);
+        if (date < new Date(now.getFullYear(), now.getMonth(), now.getDate())) continue;
 
         days.push({
             label: day.toString(),
             value: day,
             date: date,
-            disabled: weekend
+            disabled: isWeekend(date)
         });
     }
 
@@ -152,18 +149,28 @@ export const getAvailableHours = (selectedDate: Date): string[] => {
     const isToday = selectedDate.toDateString() === now.toDateString();
     const hours = generateHoursArray();
 
-    if (isToday && now.getHours() < CUTOFF_HOUR) {
-        const currentMinutes = now.getHours() * 60 + now.getMinutes();
-        const cutoffMinutes = currentMinutes + 60;
+    return hours.filter(time => {
+        const [hour, minute] = time.split(':').map(Number);
+        const dateInLocal = new Date(
+            selectedDate.getFullYear(),
+            selectedDate.getMonth(),
+            selectedDate.getDate(),
+            hour,
+            minute
+        );
 
-        return hours.filter(time => {
-            const [hours, minutes] = time.split(':').map(Number);
-            const timeMinutes = hours * 60 + minutes;
-            return timeMinutes >= cutoffMinutes;
-        });
-    }
+        const yerevanHour = getYerevanHour(dateInLocal);
 
-    return hours;
+        if (yerevanHour >= END_HOUR) return false;
+
+        if (isToday) {
+            const localMinutesNow = now.getHours() * 60 + now.getMinutes();
+            const inputMinutes = hour * 60 + minute;
+            if (inputMinutes < localMinutesNow + 60) return false;
+        }
+
+        return true;
+    });
 };
 
 export const createDateTime = (selectedDate: Date, selectedHour: string): Date => {
@@ -177,6 +184,15 @@ export const createDateTime = (selectedDate: Date, selectedHour: string): Date =
     }
 
     return dateTime;
+};
+export const getYerevanHour = (date: Date): number => {
+    const dateStr = date.toLocaleString('en-US', {
+        hour: '2-digit',
+        hour12: false,
+        timeZone: DEFAULT_TIMEZONE
+    });
+
+    return parseInt(dateStr.split(':')[0], 10);
 };
 
 export const saveToLocalStorage = (isoDate: string) => {
