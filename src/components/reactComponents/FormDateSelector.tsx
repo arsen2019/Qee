@@ -5,9 +5,10 @@ import {
     getAvailableDays,
     getAvailableHours,
     createDateTime,
-    getStoredDate, DEFAULT_TIMEZONE, getTimeDifferenceFromYerevan,
+    getStoredDate,
 } from '../../utils/dateUtils.ts';
 import {Dropdown} from "../../utils/Dropdown.tsx"
+import {TimezoneBanner} from "./TimezoneBanner.tsx";
 
 const FormDateSelector = ({ onDateChange }: { onDateChange: (date: string) => void }) => {
     const getStoredOrInitial = () => {
@@ -77,23 +78,10 @@ const FormDateSelector = ({ onDateChange }: { onDateChange: (date: string) => vo
     const handleHourChange = (hour: string) => {
         setSelectedHour(hour);
     };
-    const { localOffset, yerevanOffset, diffHours } = getTimeDifferenceFromYerevan();
-
-    const showBanner = localOffset !== yerevanOffset;
 
     return (
         <>
-            {showBanner && (
-                <div className="bg-yellow-100 border-l-4 border-yellow-400 text-center p-3 mb-1 rounded-[8px] text-sm text-yellow-800">
-                    All times are shown in <strong>{DEFAULT_TIMEZONE} (UTC{yerevanOffset >= 0 ? `+${yerevanOffset}` : yerevanOffset})</strong>.
-                    You’re in UTC{localOffset >= 0 ? `+${localOffset}` : localOffset}, which is{' '}
-                    <strong>
-                        {diffHours > 0
-                            ? `${diffHours} hour${diffHours !== 1 ? 's' : ''} ahead`
-                            : `${-diffHours} hour${diffHours !== -1 ? 's' : ''} behind`}
-                    </strong>.
-                </div>
-            )}
+            <TimezoneBanner/>
             <div className="grid grid-cols-3 gap-4 w-full">
                 <Dropdown
                     label="Month"
