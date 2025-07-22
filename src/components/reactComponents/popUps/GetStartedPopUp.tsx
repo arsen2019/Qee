@@ -16,6 +16,7 @@ interface FormData {
     name: string;
     email: string;
     phone: string;
+    company: string;
     services: string[];
 }
 
@@ -24,6 +25,7 @@ interface SubmissionData {
     name: string;
     email: string;
     phone: string;
+    company: string;
     services: string;
 }
 
@@ -33,6 +35,7 @@ export default function GetStartedPopUp({style, buttonText}: IProps) {
         name: "",
         email: "",
         phone: "",
+        company: "",
         services: [],
     });
     const [selectedDate, setSelectedDate] = useState<string>()
@@ -75,6 +78,7 @@ export default function GetStartedPopUp({style, buttonText}: IProps) {
             name: formData.name.trim(),
             email: formData.email.trim(),
             phone: validateAndCleanString(formData.phone),
+            company: validateAndCleanString(formData.company),
             services: servicesArray.join(", "),
         }
 
@@ -102,7 +106,7 @@ export default function GetStartedPopUp({style, buttonText}: IProps) {
                 <div
                     className="modal-overlay fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-[999]">
                     <div
-                        className="modal-wrapper bg-white w-[95%] max-w-[800px] md:w-[60%] px-3 py-6 transition-all duration-300 transform scale-100 opacity-100 animate-fadeIn">
+                        className="modal-wrapper bg-white w-[95%] max-w-[800px] md:w-[60%] max-h-[90%] overflow-scroll px-3 py-6 transition-all duration-300 transform scale-100 opacity-100 animate-fadeIn">
                         <div className="close-btn-div">
                             <button className="close-btn" onClick={() => setIsOpen(false)}>
                                 <svg className='w-10 h-10' width="40" height="40" viewBox="0 0 40 40" fill="none"
@@ -114,14 +118,16 @@ export default function GetStartedPopUp({style, buttonText}: IProps) {
                             </button>
                         </div>
 
-                        <div className="modal-content flex justify-start gap-10 flex-col">
+                        <div className="modal-content flex justify-start gap-5 !py-0 flex-col">
                             <h1 className='text-[#151515] text-[20px] md:text-[24px] lg:text-[36px] font-semibold'>
                                 Request For Price Offer
                             </h1>
+                            <div className=''>
+                                <FormDateSelector
+                                    onDateChange={(date) => setFormData(prev => ({...prev, date}))}
+                                />
+                            </div>
 
-                            <FormDateSelector
-                                onDateChange={(date) => setFormData(prev => ({...prev, date}))}
-                            />
 
                             <form className="modal-form md:text-[20px] text-[16px]" onSubmit={handleSubmit}>
                                 <div className="flex flex-col text-[#787676] gap-5">
@@ -145,6 +151,15 @@ export default function GetStartedPopUp({style, buttonText}: IProps) {
                                     />
                                     <input
                                         type="tel"
+                                        onChange={handleChange}
+                                        required
+                                        value={formData['company']}
+                                        name='company'
+                                        placeholder="Company"
+                                        className="input-field"
+                                    />
+                                    <input
+                                        type="text"
                                         step="0.01"
                                         onChange={handleChange}
                                         required

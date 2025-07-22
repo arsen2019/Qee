@@ -82,7 +82,7 @@ const FormDateSelector = ({ onDateChange }: { onDateChange: (date: string) => vo
     return (
         <>
             <TimezoneBanner/>
-            <div className="grid grid-cols-3 gap-4 w-full">
+            <div className="grid grid-cols-3 gap-4 w-full shadow-[0px_0px_20px_5px]  md:shadow-gray-800 shadow-gray-500  rounded-lg py-2">
                 <Dropdown
                     label="Month"
                     value={`${selectedDate.getFullYear()}-${selectedDate.getMonth()}`}

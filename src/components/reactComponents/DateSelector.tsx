@@ -81,7 +81,7 @@ const DateSelector: React.FC<Props> = ({onDateChange, initialDate}) => {
         <>
             <TimezoneBanner/>
             <div
-                className="w-full flex flex-col gap-5 md:gap-0 md:flex-row justify-between  rounded-lg md:shadow-[0px_0px_20px_5px] shadow-gray-800 ">
+                className="w-full flex flex-col gap-5 md:gap-0 md:flex-row justify-between  rounded-lg shadow-[0px_0px_20px_5px]  md:shadow-gray-800 shadow-gray-500  ">
                 <div
                     className="grid grid-cols-3 gap-3 py-4 bg-white rounded-lg md:rounded-l-lg md:rounded-r-none w-full md:flex-grow shadow-[0px_0px_15px_4px] shadow-gray-500 md:shadow-none">
                     <Dropdown
