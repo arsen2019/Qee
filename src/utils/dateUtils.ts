@@ -3,7 +3,7 @@ export const START_HOUR = 9;
 export const END_HOUR = 23;
 export const STEP_MINUTES = 30;
 
-export const DEFAULT_TIMEZONE = 'Europe/London';
+export const DEFAULT_TIMEZONE = 'Asia/Yerevan';
 
 /**
  * Returns the difference in hours between the user's local TZ and Asia/Yerevan.

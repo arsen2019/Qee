@@ -12,6 +12,7 @@
 .services-dropdown .custom-select.ant-select-focused .ant-select-selector {
     border-color: #3b82f6;
     box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+    color: #555555;
 }
 
 .services-dropdown .custom-select .ant-select-selection-placeholder {

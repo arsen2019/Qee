@@ -2,6 +2,7 @@
 import ScrollNavButton from "../reactComponents/ScrollNavButton";
 import Terms from "../reactComponents/popUps/Terms";
 import Policy from "../reactComponents/popUps/Policy";
+import ServiceDropdown from "../reactComponents/ServiceDropdown";
 const currentYear = new Date().getFullYear();
 ---
 <footer class="bg-[#003171] text-white px-6 py-10 md:px-16 w-full">
@@ -10,33 +11,30 @@ const currentYear = new Date().getFullYear();
         <div class="space-y-6 flex gap-4 md:gap-10 flex-col md:flex-row ">
             <div class="min-w-15 w-30 md:w-20 lg:w-30">
                 <img src="/logos/whiteLogo.svg" alt="logo"/>
-
-            </div>
-            <div class="space-y-2 text-sm">
-
-                <div class="flex items-center gap-2">
-                    <img src="/vectors/mail.svg" alt="email" class="h-4 w-4"/>
-                    <span>info@digitalstorm.com</span>
-                </div>
             </div>
         </div>
 
         <!-- Middle Section -->
         <div class="flex flex-row justify-between md:justify-around gap-4 text-sm">
             <div class="space-y-1">
-                <a href="#" class="block hover:underline">Home</a>
-                <a href="#" class="block hover:underline">Services</a>
+                <a href="/" class="block hover:underline">Home</a>
+                <ScrollNavButton
+                        targetId="services"
+                        to="/"
+                        className="cursor-pointer hover:underline"
+                        client:visible
+                >Services</ScrollNavButton>
             </div>
             <div class="space-y-1">
-                <a href="#" class="block hover:underline">Blog</a>
-                <a href="#" class="block hover:underline">Contact</a>
+                <a href="/blog" class="block hover:underline">Blog</a>
+                <a href="/contact" class="block hover:underline">Contact</a>
             </div>
         </div>
 
         <!-- Right Section -->
         <div class="flex flex-col items-start md:items-end gap-4 ">
             <ScrollNavButton
-                    targetId="services"
+                    targetId="consultation"
                     to="/"
                     className="cursor-pointer  bg-white text-[#003171] font-medium px-4 py-2 rounded-md shadow text-sm whitespace-nowrap"
                     client:visible
@@ -44,11 +42,17 @@ const currentYear = new Date().getFullYear();
                 Schedule a Free Consultation
             </ScrollNavButton>
 
+            <div class="space-y-2 text-sm">
+                <div class="flex items-center gap-2">
+                    <img src="/vectors/mail.svg" alt="email" class="h-4 w-4"/>
+                    <span>info@qee.agency</span>
+                </div>
+            </div>
 
             <div class="flex gap-3">
-                <img src="/vectors/facebook.svg" alt="facebook" class="h-6 w-6"/>
-                <img src="/vectors/instagram.svg" alt="instagram" class="h-6 w-6"/>
-                <img src="/vectors/twitter.svg" alt="twitter" class="h-6 w-6"/>
+                <img src="/vectors/VectorWhatsUp.svg" alt="facebook" class="h-6 w-6"/>
+                <img src="/vectors/InstagramNegative.svg" alt="instagram" class="h-6 w-6 "/>
+                <img src="/vectors/LinkedIn.svg" alt="linkedin" class="h-6 w-6"/>
             </div>
         </div>
     </div>
@@ -57,8 +61,8 @@ const currentYear = new Date().getFullYear();
     <div class="mt-10 pt-6 text-md flex flex-col md:flex-row justify-between items-center text-white/80">
         <span>&#169 {currentYear} QEE Agency. All rights reserved</span>
         <div class="flex gap-4 mt-2 md:mt-0">
-            <Terms client:only="'react"/>
-            <Policy client:only="'react'"/>
+            <Terms client:only="react"/>
+            <Policy client:only="react"/>
         </div>
     </div>
 </footer>

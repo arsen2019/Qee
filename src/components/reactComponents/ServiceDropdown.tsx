@@ -11,7 +11,7 @@ const items = [
 export default function ServiceDropdown() {
     return (
         <Dropdown placement={"bottom"} menu={{ items }} trigger={["hover"]} getPopupContainer={(triggerNode) => triggerNode.parentElement!}>
-            <a className="cursor-pointer flex items-center gap-1 hover:text-[#003B71] transition">
+            <a className="cursor-pointer flex items-center gap-1 text-[#000] hover:text-[#003B71] transition">
                 Services
             </a>
         </Dropdown>

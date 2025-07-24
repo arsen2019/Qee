@@ -285,7 +285,7 @@ export default function Policy() {
                                         <p className="p-5 text-base text-gray-700">
                                             If you have any questions, requests, or concerns regarding this Privacy Policy or your personal data, please contact:
                                         </p>
-                                        <p className='font-semibold'>Email: info@qee.com</p>
+                                        <p className='font-semibold'>Email: info@qee.agency</p>
                                         <p className='font-semibold'>Phone: +374000000</p>
                                     </div>
                                 </div>
