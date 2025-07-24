@@ -4,6 +4,19 @@ import { FormField } from "./form/FormField";
 import { GeneralErrorAlert } from "./form/GeneralErrorAlert";
 import { LoadingButton } from "./form/LoadingButton";
 import FeedbackPopUp from "./popUps/FeedbackPopUp";
+import {formatDateForSubmission} from "../../utils/serviceUtils.ts";
+
+interface SubmissionData {
+    name: string;
+    email: string;
+    company: string;
+    industry: string | null;
+    phone: string | null;
+    services: string;
+    message: string | null;
+    contactMethod: "whatsapp" | "email" | null;
+}
+
 
 interface FormData {
     name: string;
@@ -113,14 +126,21 @@ export default function GetInTouchForm() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         clearErrors();
+        let servicesArray = [...formData.services];
 
-        const submissionData = { ...formData };
-        if (formData.services.includes('other') && formData.otherService) {
-            submissionData.services = formData.services.filter(s => s !== 'other');
-            submissionData.services.push(formData.otherService);
-        }
+        const submissionData: SubmissionData = {
+            name: formData.name.trim(),
+            email: formData.email.trim(),
+            company: formData.company.trim(),
+            industry: formData.industry,
+            phone: formData.phone,
+            services: servicesArray.join(", "),
+            message: formData.message,
+            contactMethod: formData.contactMethod || null
+        };
+        console.log(submissionData)
 
-        const success = await submitForm('/contact', submissionData);
+        const success = await submitForm('/touch', submissionData);
 
         if (success) {
             setIsFeedbackOpen(true);

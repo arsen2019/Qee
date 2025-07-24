@@ -112,7 +112,7 @@ export default function GetStartedPopUp({ style, buttonText }: IProps) {
             services: servicesArray.join(", "),
         };
 
-        const success = await submitForm('/touch', submissionData);
+        const success = await submitForm('/schedule', submissionData);
 
         if (success) {
             setIsFeedbackOpen(true);

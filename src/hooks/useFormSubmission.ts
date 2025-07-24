@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { submitFormData } from '../utils/formSubmissionUtils';
 import type {FormSubmissionState} from "../types/formTypes.ts";
-import {getErrorMessage} from "../utils/errorMessage.ts";
 
 export const useFormSubmission = () => {
     const [submissionState, setSubmissionState] = useState<FormSubmissionState>({
