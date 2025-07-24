@@ -123,7 +123,7 @@ export default function Terms() {
                                         <p className="p-5 text-base text-gray-700">We comply with all applicable laws
                                             and industry standards, including:</p>
                                         <ul className="list-disc list-inside text-gray-700 space-y-1 p-4">
-                                            <li>Local laws and regulations in Nepal
+                                            <li>Local laws and regulations in Armenia
                                             </li>
                                             <li>International standards in data privacy and information security (e.g.,
                                                 GDPR where applicable)
@@ -268,7 +268,7 @@ export default function Terms() {
                                         <p className="p-5 text-base text-gray-700">
                                             If you have any questions about these Terms, please contact us at:
                                         </p>
-                                        <p className='font-semibold'>Email: info@qee.com</p>
+                                        <p className='font-semibold'>Email: info@qee.agency</p>
                                         <p className='font-semibold'>Phone: +374000000</p>
                                     </div>
                                 </div>

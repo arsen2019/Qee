@@ -56,9 +56,11 @@ const BlogPost: React.FC<BlogPostProps> = ({
                 </div>
 
                 <div
-                    className={`absolute inset-x-0 z-20 bottom-0 w-full bg-[#003B71] text-white px-6 md:px-10 py-4
+
+                    className={`absolute z-20 inset-x-0 bottom-0 w-full bg-[#003B71] text-white px-6 md:px-10 py-4
                     transition-all duration-500 ease-in-out rounded-t-2xl flex flex-col justify-center
-                    ${isExpanded ? 'h-full' : 'h-[40%] min-h-fit'}`}
+                    ${isExpanded ? 'h-full' : 'h-[40%] h-min-fit'}`}
+    
                 >
                     <div className="transition-all duration-500 ease-in-out">
                         <h3 className="md:text-[20px] text-[16px] font-bold">{title}</h3>

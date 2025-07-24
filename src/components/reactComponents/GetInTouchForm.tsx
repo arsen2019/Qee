@@ -243,6 +243,7 @@ export default function GetInTouchForm() {
                             onChange={handleChange}
                             className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-500"
                         />
+
                     </FormField>
 
                     <div className="relative" ref={dropdownRef}>
@@ -340,8 +341,9 @@ export default function GetInTouchForm() {
 
                 <div className="mt-6 flex flex-col space-y-2">
                     <div className="flex items-center space-x-2">
-                        <img src="/vectors/fluent_mail-12-regular%20(1).svg" alt="Email" className="h-6 w-6 text-gray-700" />
-                        <span className="text-sm text-gray-700">info@digitalreform.com</span>
+                        <img src="/vectors/fluent_mail-12-regular%20(1).svg" alt="Email"
+                             className="h-6 w-6 text-gray-700"/>
+                        <a href="mailto:info@qee.agency" className="text-sm text-gray-700">info@qee.agency</a>
                     </div>
                 </div>
 
@@ -389,7 +391,7 @@ export default function GetInTouchForm() {
                         <img src="/vectors/bxl_instagram-alt%20(1).svg" alt="Instagram" className="h-8 w-8" />
                     </a>
                     <a href="#" className="text-blue-800">
-                        <img src="/vectors/ant-design_twitter-circle-filled%20(1).svg" alt="Twitter" className="h-8 w-8" />
+                        <img src="/vectors/LinkedInNeg.svg" alt="Linkedin Negative" className="h-8 w-8" />
                     </a>
                 </div>
             </form>
