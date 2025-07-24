@@ -1,13 +1,16 @@
 import { useState, useEffect, useRef } from "react";
+import { useFormSubmission } from "../../hooks/useFormSubmission";
+import { FormField } from "./form/FormField";
+import { GeneralErrorAlert } from "./form/GeneralErrorAlert";
+import { LoadingButton } from "./form/LoadingButton";
 import FeedbackPopUp from "./popUps/FeedbackPopUp";
-import { postData } from '../../utils/utils';
 
 interface FormData {
     name: string;
     email: string;
     company: string;
     industry: string;
-    position: string;
+    phone: string;
     services: string[];
     otherService: string;
     message: string;
@@ -25,7 +28,7 @@ export default function GetInTouchForm() {
         email: '',
         company: '',
         industry: '',
-        position: '',
+        phone: '',
         services: [],
         otherService: '',
         message: '',
@@ -33,9 +36,19 @@ export default function GetInTouchForm() {
     });
 
     const [isServicesOpen, setIsServicesOpen] = useState<boolean>(false);
-    const [isFeedbackOpen, setIsFeedbackOpen] = useState<boolean>(false);
-    const feedbackContent = "Thanks for getting in touch. We'll get back to you shortly.";
+    const feedbackContent = "Thanks! We’ll be in touch within 24 hours";
     const dropdownRef = useRef<HTMLDivElement>(null);
+    const [isFeedbackOpen, setIsFeedbackOpen] = useState<boolean>(false);
+
+    const {
+        isLoading,
+        errors,
+        generalError,
+        isSuccess,
+        submitForm,
+        clearErrors,
+        clearFieldError,
+    } = useFormSubmission();
 
     const services: ServiceOption[] = [
         { id: 'consulting', label: 'Consulting' },
@@ -55,10 +68,29 @@ export default function GetInTouchForm() {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
+    useEffect(() => {
+        if (isSuccess) {
+            setFormData({
+                name: '',
+                email: '',
+                company: '',
+                industry: '',
+                phone: '',
+                services: [],
+                otherService: '',
+                message: '',
+                contactMethod: ''
+            });
+        }
+    }, [isSuccess]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
+
+        if (errors[name]) {
+            clearFieldError(name);
+        }
     };
 
     const handleServiceChange = (serviceId: string) => {
@@ -72,10 +104,15 @@ export default function GetInTouchForm() {
         }
 
         setFormData({ ...formData, services: updatedServices });
+
+        if (errors.services) {
+            clearFieldError('services');
+        }
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        clearErrors();
 
         const submissionData = { ...formData };
         if (formData.services.includes('other') && formData.otherService) {
@@ -83,27 +120,19 @@ export default function GetInTouchForm() {
             submissionData.services.push(formData.otherService);
         }
 
-        postData('/contact', submissionData);
+        const success = await submitForm('/contact', submissionData);
 
-        setIsFeedbackOpen(true);
-        setTimeout(() => setIsFeedbackOpen(false), 2000);
-
-        // Reset form after submission
-        setFormData({
-            name: '',
-            email: '',
-            company: '',
-            industry: '',
-            position: '',
-            services: [],
-            otherService: '',
-            message: '',
-            contactMethod: 'whatsapp'
-        });
+        if (success) {
+            setIsFeedbackOpen(true);
+            setTimeout(() => setIsFeedbackOpen(false), 2000);
+        }
     };
 
     const handleContactMethodChange = (method: "whatsapp" | "email") => {
         setFormData({ ...formData, contactMethod: method });
+        if (errors.contactMethod) {
+            clearFieldError('contactMethod');
+        }
     };
 
     const displaySelectedServices = () => {
@@ -129,9 +158,17 @@ export default function GetInTouchForm() {
              data-aos-anchor-placement="top-center">
             <h2 className="text-2xl font-semibold mb-5">Get In Touch</h2>
 
+            {/* General Error Alert */}
+            {generalError && (
+                <GeneralErrorAlert
+                    message={generalError}
+                    onClose={clearErrors}
+                />
+            )}
+
             <form onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <div>
+                    <FormField error={errors.name}>
                         <input
                             type="text"
                             name="name"
@@ -141,8 +178,9 @@ export default function GetInTouchForm() {
                             required
                             className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-500"
                         />
-                    </div>
-                    <div>
+                    </FormField>
+
+                    <FormField error={errors.email}>
                         <input
                             type="email"
                             name="email"
@@ -152,8 +190,9 @@ export default function GetInTouchForm() {
                             required
                             className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-500"
                         />
-                    </div>
-                    <div>
+                    </FormField>
+
+                    <FormField error={errors.company}>
                         <input
                             type="text"
                             name="company"
@@ -162,8 +201,9 @@ export default function GetInTouchForm() {
                             onChange={handleChange}
                             className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-500"
                         />
-                    </div>
-                    <div>
+                    </FormField>
+
+                    <FormField error={errors.industry}>
                         <input
                             type="text"
                             name="industry"
@@ -172,28 +212,32 @@ export default function GetInTouchForm() {
                             onChange={handleChange}
                             className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-500"
                         />
-                    </div>
-                    <div>
+                    </FormField>
+
+                    <FormField error={errors.phone}>
                         <input
                             type="text"
-                            name="position"
-                            placeholder="Position"
-                            value={formData.position}
+                            name="phone"
+                            placeholder="Phone"
+                            value={formData.phone}
                             onChange={handleChange}
                             className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-500"
                         />
-                    </div>
+                    </FormField>
+
                     <div className="relative" ref={dropdownRef}>
-                        <button
-                            type="button"
-                            onClick={() => setIsServicesOpen(!isServicesOpen)}
-                            className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent text-left flex justify-between items-center"
-                        >
-                            <span className={formData.services.length === 0 ? "text-gray-500" : ""}>
-                                {displaySelectedServices()}
-                            </span>
-                            <img src="/vectors/arrowDown.svg" alt="Dropdown" className="h-4 w-4" />
-                        </button>
+                        <FormField error={errors.services}>
+                            <button
+                                type="button"
+                                onClick={() => setIsServicesOpen(!isServicesOpen)}
+                                className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent text-left flex justify-between items-center"
+                            >
+                                <span className={formData.services.length === 0 ? "text-gray-500" : ""}>
+                                    {displaySelectedServices()}
+                                </span>
+                                <img src="/vectors/arrowDown.svg" alt="Dropdown" className="h-4 w-4" />
+                            </button>
+                        </FormField>
 
                         {isServicesOpen && (
                             <div className="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded shadow-lg max-h-48 overflow-y-auto">
@@ -233,15 +277,17 @@ export default function GetInTouchForm() {
 
                                 {formData.services.includes('other') && (
                                     <div className="px-3 py-2 border-t border-gray-200">
-                                        <input
-                                            type="text"
-                                            name="otherService"
-                                            placeholder="Please specify"
-                                            value={formData.otherService}
-                                            onChange={handleChange}
-                                            onClick={(e) => e.stopPropagation()}
-                                            className="w-full p-1 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                        />
+                                        <FormField error={errors.otherService}>
+                                            <input
+                                                type="text"
+                                                name="otherService"
+                                                placeholder="Please specify"
+                                                value={formData.otherService}
+                                                onChange={handleChange}
+                                                onClick={(e) => e.stopPropagation()}
+                                                className="w-full p-1 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                            />
+                                        </FormField>
                                     </div>
                                 )}
                             </div>
@@ -250,22 +296,27 @@ export default function GetInTouchForm() {
                 </div>
 
                 <div className="mb-4">
-                    <textarea
-                        name="message"
-                        placeholder="How can we help you?"
-                        value={formData.message}
-                        onChange={handleChange}
-                        rows={3}
-                        className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent "
-                    ></textarea>
+                    <FormField error={errors.message}>
+                        <textarea
+                            name="message"
+                            placeholder="How can we help you?"
+                            value={formData.message}
+                            onChange={handleChange}
+                            rows={3}
+                            className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        />
+                    </FormField>
                 </div>
 
-                <button
+                <LoadingButton
                     type="submit"
+                    isLoading={isLoading}
+                    loadingText="Sending..."
+                    disabled={isLoading}
                     className="w-full bg-[#033271] text-white py-2 px-4 rounded hover:bg-blue-900 transition duration-200"
                 >
                     Send
-                </button>
+                </LoadingButton>
 
                 <div className="mt-6 flex flex-col space-y-2">
                     <div className="flex items-center space-x-2">
@@ -276,6 +327,14 @@ export default function GetInTouchForm() {
 
                 <div className="mt-4">
                     <p className="text-sm text-gray-700 mb-2">Choose preferred way to connect</p>
+                    {errors.contactMethod && (
+                        <p className="text-sm text-red-600 mb-1 flex items-center">
+                            <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                            </svg>
+                            {errors.contactMethod}
+                        </p>
+                    )}
                     <div className="flex items-center gap-2">
                         <button
                             type="button"
@@ -284,7 +343,7 @@ export default function GetInTouchForm() {
                                 formData.contactMethod === "whatsapp"
                                     ? "bg-green-300 text-white"
                                     : "bg-gray-200 text-gray-600"
-                            }`}
+                            } ${errors.contactMethod ? 'ring-2 ring-red-500' : ''}`}
                         >
                             <img src="/vectors/whatsapp.svg" alt="WhatsApp" className="h-8 w-8" />
                         </button>
@@ -295,7 +354,7 @@ export default function GetInTouchForm() {
                                 formData.contactMethod === "email"
                                     ? "bg-blue-300 text-white"
                                     : "bg-gray-200 text-gray-600"
-                            }`}
+                            } ${errors.contactMethod ? 'ring-2 ring-red-500' : ''}`}
                         >
                             <img src="/vectors/fluent_mail-12-regular%20(1).svg" alt="Email" className="h-8 w-8" />
                         </button>
